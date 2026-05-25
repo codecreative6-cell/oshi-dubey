@@ -222,3 +222,148 @@
 <script src="main.js"></script>
 </body>
 </html>
+      <div class="img-scan"></div>
+    </div>
+    <!-- neon slash edge -->
+    <div class="img-slash"></div>
+    <!-- label tag -->
+    <div class="img-tag">✦ Oshi Dube ✦</div>
+  </div>
+
+  <p class="hero-role">
+    Keeper of ancient rhythm &nbsp;·&nbsp; <em>Kathak, Bharatanatyam</em> &nbsp;·&nbsp; Moving like prayer
+  </p>
+
+  <div class="hero-pills">
+    <span class="pill">Mudra</span>
+    <span class="pill">Taal</span>
+    <span class="pill">Rasa</span>
+    <span class="pill">Abhinaya</span>
+    <span class="pill">Ghungroo</span>
+    <span class="pill">Nataraja</span>
+    <span class="pill">Lasya</span>
+    <span class="pill">Nritta</span>
+  </div>
+
+  <div class="scroll-line">Scroll</div>
+</div>
+
+<!-- DIVIDER -->
+<div class="neon-div"></div>
+
+
+<!-- ───── ABOUT ───── -->
+<section id="about">
+  <div class="about-left">
+    <div class="about-ink" style="width:600px;height:600px;top:-100px;left:-100px;"></div>
+    <p class="about-tag rev">Birthday Tribute — To the Dancer</p>
+    <h2 class="about-title rev">When She <span>Dances</span>,<br>Time Forgets<br>To Move</h2>
+    <p class="about-body rev">
+      There are performers, and then there are <em>vessels</em>. Oshi is the latter —
+      a living conduit through which centuries of classical Indian art pour themselves
+      onto the stage. In her <em>mudras</em>, entire Puranas unfold.
+      In her footwork, the cosmos keeps its beat.
+    </p>
+    <p class="about-body rev" style="margin-top:1.2rem;">
+      On this birthday, the world celebrates not just the passage of time
+      but the extraordinary soul who <em>adorns</em> every moment she inhabits
+      with the grace of a thousand diyas lit at once.
+    </p>
+    <div class="about-quote rev">
+      "The dancer's body is the temple,<br>
+      the music is the prayer, and<br>
+      the audience holds its breath like an offering."
+    </div>
+  </div>
+
+  <div class="about-right">
+    <!-- image cells — stacked top & bottom -->
+    <div class="about-img-cell rev">
+      <img src="img/img (15).JPG" alt="Oshi Dube">
+      <div class="about-img-label">Taal</div>
+    </div>
+    <div class="about-img-cell rev" style="transition-delay:.1s">
+      <img src="img/img (16).JPG" alt="Oshi Dube">
+      <div class="about-img-label">Rasa</div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="neon-div" style="background:linear-gradient(90deg,transparent,var(--neon-c),var(--gold),var(--neon-p),transparent);"></div>
+
+<!-- ───── GALLERY ───── -->
+<div id="gallery">
+  <div class="gal-head rev">
+    <h2 class="gal-title">
+      <span class="t1">A Life</span>
+      <span class="t2">In Motion</span>
+    </h2>
+    <p class="gal-sub">Every frame a poem. Click any image to view it in full.</p>
+  </div>
+  <div class="grid" id="grid"></div>
+</div>
+
+<!-- DIVIDER -->
+<div class="neon-div" style="background:linear-gradient(90deg,transparent,var(--neon-p),var(--neon-o),transparent);"></div>
+
+<!-- ───── STAGE FINALE ───── -->
+<div id="outro">
+
+  <!-- confetti canvas (fixed, over everything) -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- starry bg + floor -->
+  <canvas id="outro-stars"></canvas>
+  <div class="stage-floor"></div>
+
+  <!-- spotlight cone -->
+  <div class="spotlight"></div>
+
+  <!-- gold pelmet -->
+  <div class="pelmet">
+    <div class="pelmet-fringe" id="fringeRow"></div>
+  </div>
+
+  <!-- velvet curtains (sit above content, below button) -->
+  <div class="curtain-l"></div>
+  <div class="curtain-r"></div>
+
+  <!-- button — absolutely centred, above curtains -->
+  <button class="stage-btn" id="openBtn">🎭 &nbsp; Raise the Curtain</button>
+
+  <!-- stage content — revealed after open -->
+  <div class="stage-content">
+    <span class="stage-kicker">✦ A standing ovation for ✦</span>
+
+    <h2 class="stage-headline">
+      <span class="sh1">HAPPY</span>
+      <span class="sh2">BIRTHDAY</span>
+    </h2>
+
+    <p class="stage-poem">
+      The stage remembers every step you've left upon it.<br>
+      Every <em>ghungroo</em> note still echoes in its wooden grain.<br>
+      Today the spotlight belongs to <em>you</em> — not the dancer,<br>
+      but the soul brave enough to become one.
+    </p>
+
+    <div class="diya-row" id="diyaRow"></div>
+
+    <p class="diya-msg" id="diyaMsg">✦ All diyas lit — may every wish come true ✦</p>
+  </div>
+
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lb">
+  <span class="lx" id="lbX">✕</span>
+  <button class="ln lp" id="lbPrev">‹</button>
+  <img id="lbImg" src="" alt="">
+  <button class="ln lnx" id="lbNext">›</button>
+  <div id="lb-counter"></div>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
