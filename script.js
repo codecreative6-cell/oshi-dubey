@@ -1,11 +1,69 @@
-﻿/* ══ PRELOADER ══ */
+﻿/* ══ PRELOADER — HAPPY BIRTHDAY ANIMATION ══ */
+(function(){
+  const phrase = "Happy Birthday!";
+  const colors = ["#ffd6e0","#f9e4b7","#e8617a","#d4a84b","#f7b8c4","#9b50e0","#2ecc90","#fff6d6"];
+  const container = document.getElementById('preHB');
+
+  // Build letter spans
+  phrase.split('').forEach((ch, i) => {
+    if(ch === ' '){
+      const sp = document.createElement('span');
+      sp.className = 'hb-space';
+      container.appendChild(sp);
+    } else {
+      const s = document.createElement('span');
+      s.className = 'hb-letter';
+      s.textContent = ch;
+      s.style.animationDelay = (i * 0.07) + 's';
+      // Stagger shimmer offset per letter
+      s.style.backgroundPosition = (i * 20) + '% 50%';
+      container.appendChild(s);
+    }
+  });
+
+  // Spawn floating stars after letters appear
+  setTimeout(() => {
+    const wrap = document.querySelector('.pre-hb-wrap');
+    const emojis = ['✨','🎉','⭐','🌸','🎊','💫','🌟'];
+    let count = 0;
+    const interval = setInterval(() => {
+      const el = document.createElement('span');
+      el.className = 'pre-hb-star';
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      el.style.left = (Math.random() * 100) + '%';
+      el.style.bottom = '0px';
+      el.style.animationDelay = (Math.random() * .5) + 's';
+      wrap.appendChild(el);
+      el.addEventListener('animationend', () => el.remove());
+      if(++count > 30) clearInterval(interval);
+    }, 150);
+  }, 800);
+
+  // Confetti rain
+  const confWrap = document.getElementById('preConfetti');
+  const confColors = ['#e8617a','#d4a84b','#f7b8c4','#9b50e0','#2ecc90','#fff6d6','#40c0ff'];
+  for(let i = 0; i < 38; i++){
+    const c = document.createElement('div');
+    c.className = 'pre-conf';
+    c.style.left = (Math.random() * 100) + '%';
+    c.style.top = (Math.random() * -120) + 'px';
+    c.style.background = confColors[Math.floor(Math.random() * confColors.length)];
+    c.style.width = (Math.random() * 8 + 4) + 'px';
+    c.style.height = (Math.random() * 8 + 4) + 'px';
+    c.style.borderRadius = Math.random() > .5 ? '50%' : '2px';
+    c.style.animationDuration = (Math.random() * 3 + 2.5) + 's';
+    c.style.animationDelay = (Math.random() * 2.5) + 's';
+    confWrap.appendChild(c);
+  }
+})();
+
 window.addEventListener('load',()=>{
   document.getElementById('prefill').style.width='100%';
   setTimeout(()=>{
     document.getElementById('preloader').classList.add('hide');
     setTimeout(launchConfetti,500);
     setTimeout(launchManyFireworks,800);
-  },2500);
+  },2800);
 });
 
 /* ══ SCROLL PROGRESS ══ */
@@ -193,10 +251,10 @@ function resizeFW(){fwc.width=window.innerWidth;fwc.height=window.innerHeight}
 resizeFW();window.addEventListener('resize',resizeFW);
 let fwP=[];
 function launchFW(x,y){
-  const cols=['#f9c83a','#e8617a','#d4a84b','#f7b8c4','#fff','#c8a8f9','#80ffcc','#ff80aa'];
-  for(let i=0;i<90;i++){
-    const a=Math.random()*Math.PI*2,sp=Math.random()*9+2;
-    fwP.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,a:1,r:Math.random()*3+1,c:cols[Math.floor(Math.random()*cols.length)],g:.1});
+  const cols=['#f9c83a','#e8617a','#d4a84b','#f7b8c4','#c8a8f9','#80ffcc'];
+  for(let i=0;i<30;i++){
+    const a=Math.random()*Math.PI*2,sp=Math.random()*5+1.5;
+    fwP.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,a:.65,r:Math.random()*2+.7,c:cols[Math.floor(Math.random()*cols.length)],g:.08});
   }
 }
 (function fwLoop(){
@@ -204,13 +262,13 @@ function launchFW(x,y){
   fwx.clearRect(0,0,fwc.width,fwc.height);
   fwP=fwP.filter(p=>p.a>.025);
   fwP.forEach(p=>{
-    p.x+=p.vx;p.y+=p.vy;p.vy+=p.g;p.vx*=.97;p.vy*=.97;p.a-=.016;
-    fwx.save();fwx.globalAlpha=p.a;fwx.fillStyle=p.c;fwx.shadowBlur=10;fwx.shadowColor=p.c;
+    p.x+=p.vx;p.y+=p.vy;p.vy+=p.g;p.vx*=.96;p.vy*=.96;p.a-=.022;
+    fwx.save();fwx.globalAlpha=p.a;fwx.fillStyle=p.c;fwx.shadowBlur=4;fwx.shadowColor=p.c;
     fwx.beginPath();fwx.arc(p.x,p.y,p.r,0,Math.PI*2);fwx.fill();fwx.restore();
   });
 })();
 function launchManyFireworks(){
-  for(let i=0;i<10;i++) setTimeout(()=>launchFW(Math.random()*window.innerWidth,Math.random()*window.innerHeight*.65),i*220);
+  for(let i=0;i<4;i++) setTimeout(()=>launchFW(Math.random()*window.innerWidth,Math.random()*window.innerHeight*.55),i*350);
 }
 
 /* ══ CONFETTI ══ */
@@ -253,6 +311,5 @@ function blowCandles(){
   setTimeout(()=>{launchManyFireworks();launchConfetti();},3500);
 }
 
-/* auto burst on load */
+/* auto burst on load — single gentle burst */
 setTimeout(()=>{launchManyFireworks();launchConfetti();},3000);
-setTimeout(()=>{launchManyFireworks();},7500);

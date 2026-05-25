@@ -36,6 +36,93 @@ body{background:var(--deep);color:var(--cream);font-family:'Playfair Display',se
 .pre-fill{height:100%;background:linear-gradient(90deg,var(--r),var(--g));width:0%;transition:width 2.3s ease}
 .pre-text{font-family:'Outfit';font-weight:200;font-size:10px;letter-spacing:6px;color:rgba(212,168,75,.5);margin-top:12px;text-transform:uppercase}
 
+/* ══ HAPPY BIRTHDAY PRELOADER ANIMATION ══ */
+.pre-hb-wrap{
+  position:relative;margin-bottom:18px;text-align:center;
+}
+.pre-hb{
+  font-family:'Dancing Script',cursive;
+  font-size:clamp(32px,8vw,72px);
+  display:flex;flex-wrap:wrap;justify-content:center;gap:0 2px;
+  letter-spacing:2px;
+  filter:drop-shadow(0 0 18px rgba(232,97,122,.7));
+}
+.pre-hb-glow{
+  position:absolute;inset:-20px;
+  background:radial-gradient(ellipse at 50% 50%,rgba(212,168,75,.18) 0%,transparent 70%);
+  pointer-events:none;animation:hbGlowPulse 2s ease-in-out infinite;
+}
+@keyframes hbGlowPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+
+/* Individual letter animation */
+.hb-letter{
+  display:inline-block;
+  background:linear-gradient(135deg,#ffd6e0,#f9e4b7,#e8617a,#d4a84b,#f7b8c4,#fff6d6);
+  background-size:300% 300%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  opacity:0;transform:translateY(40px) rotate(-8deg) scale(.6);
+  animation:hbLetterIn .6s cubic-bezier(.22,1.2,.36,1) forwards, hbShimmer 4s linear 1s infinite;
+}
+.hb-space{width:.35em;display:inline-block}
+@keyframes hbLetterIn{
+  0%{opacity:0;transform:translateY(40px) rotate(-8deg) scale(.6)}
+  60%{opacity:1;transform:translateY(-6px) rotate(2deg) scale(1.08)}
+  80%{transform:translateY(2px) rotate(-1deg) scale(.97)}
+  100%{opacity:1;transform:translateY(0) rotate(0deg) scale(1)}
+}
+@keyframes hbShimmer{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* Star burst emojis that float up */
+.pre-hb-star{
+  position:absolute;font-size:1.2rem;
+  animation:starFloat 2.5s ease-out forwards;
+  pointer-events:none;
+}
+@keyframes starFloat{
+  0%{opacity:1;transform:translateY(0) scale(1)}
+  100%{opacity:0;transform:translateY(-80px) scale(0) rotate(180deg)}
+}
+
+/* Balloons on preloader */
+.pre-balloons{
+  display:flex;gap:14px;margin-bottom:10px;
+}
+.pre-balloon{
+  width:28px;height:36px;
+  background:var(--bc,#e8617a);
+  border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;
+  position:relative;
+  animation:preBalloonFloat 2.4s ease-in-out infinite;
+  animation-delay:var(--bd,0s);
+  box-shadow:0 0 12px color-mix(in srgb,var(--bc,#e8617a) 60%,transparent);
+}
+.pre-balloon::after{
+  content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);
+  width:1.5px;height:10px;background:rgba(255,255,255,.4);
+}
+@keyframes preBalloonFloat{
+  0%,100%{transform:translateY(0) rotate(-4deg)}
+  50%{transform:translateY(-10px) rotate(4deg)}
+}
+
+/* Confetti particles */
+.pre-confetti-wrap{
+  position:absolute;inset:0;pointer-events:none;overflow:hidden;
+}
+.pre-conf{
+  position:absolute;width:7px;height:7px;border-radius:2px;
+  animation:confFall linear infinite;
+  opacity:.85;
+}
+@keyframes confFall{
+  0%{transform:translateY(-10px) rotate(0deg);opacity:.85}
+  100%{transform:translateY(100vh) rotate(720deg);opacity:0}
+}
+
 /* ══ SCROLL PROGRESS ══ */
 #progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#e8617a,#d4a84b,#f7b8c4);z-index:1000;width:0%;box-shadow:0 0 10px #d4a84b}
 
@@ -467,18 +554,18 @@ body{background:var(--deep);color:var(--cream);font-family:'Playfair Display',se
 }
 .story-frame-stage .story-media{
   background:
-    radial-gradient(circle at 44% 36%,rgba(232,97,122,.32),transparent 42%),
-    linear-gradient(135deg,#1d0708 0%,#070503 100%);
+    radial-gradient(circle at 44% 36%,rgba(232,97,122,.42),transparent 44%),
+    linear-gradient(135deg,#2a0a14 0%,#100308 100%);
 }
 .story-frame-memory .story-media{
   background:
-    radial-gradient(circle at 32% 34%,rgba(247,184,196,.22),transparent 42%),
-    linear-gradient(135deg,#151126 0%,#080604 100%);
+    radial-gradient(circle at 32% 34%,rgba(155,80,224,.38),transparent 44%),
+    linear-gradient(135deg,#180a2e 0%,#080412 100%);
 }
 .story-frame-dance .story-media{
   background:
-    radial-gradient(circle at 38% 30%,rgba(212,168,75,.16),transparent 38%),
-    linear-gradient(135deg,#251017 0%,#070503 100%);
+    radial-gradient(circle at 38% 30%,rgba(212,168,75,.38),transparent 40%),
+    linear-gradient(135deg,#241406 0%,#0c0602 100%);
 }
 .story-media::after{
   content:'';position:absolute;inset:0;
@@ -502,27 +589,57 @@ body{background:var(--deep);color:var(--cream);font-family:'Playfair Display',se
     radial-gradient(circle at 92% 80%,rgba(200,99,120,.1) 0%,transparent 42%),
     linear-gradient(90deg,var(--story-panel-soft) 0%,#070604 100%);
 }
-.story-frame-stage .story-copy{
-  background-color:#0f0806;
+/* ── Frame 1 · "This Year" — deep crimson-rose ── */
+.story-frame-stage{
   background:
-    radial-gradient(circle at 14% 20%,rgba(212,168,75,.12) 0%,transparent 34%),
-    radial-gradient(circle at 92% 42%,rgba(232,97,122,.16) 0%,transparent 44%),
-    linear-gradient(90deg,#150a07 0%,#070503 100%);
+    radial-gradient(circle at 70% 50%,rgba(232,97,122,.22) 0%,transparent 55%),
+    linear-gradient(135deg,#2a0a14 0%,#1a0510 60%,#0f0308 100%);
+  box-shadow:0 24px 90px rgba(232,97,122,.25),0 0 0 1px rgba(232,97,122,.18);
+}
+.story-frame-stage .story-copy{
+  background:
+    radial-gradient(circle at 10% 15%,rgba(247,184,196,.28) 0%,transparent 38%),
+    radial-gradient(circle at 90% 85%,rgba(200,63,90,.32) 0%,transparent 44%),
+    linear-gradient(135deg,#3d0d1a 0%,#250610 55%,#160308 100%);
+}
+.story-frame-stage .story-kicker{color:#f7b8c4}
+.story-frame-stage .story-rule{background:linear-gradient(90deg,#f7b8c4,#e8617a)}
+
+/* ── Frame 2 · "Last Frame" — deep violet-purple ── */
+.story-frame-memory{
+  background:
+    radial-gradient(circle at 60% 40%,rgba(155,80,224,.25) 0%,transparent 52%),
+    linear-gradient(135deg,#180a2e 0%,#0f0620 60%,#080412 100%);
+  box-shadow:0 24px 90px rgba(155,80,224,.25),0 0 0 1px rgba(155,80,224,.2);
+  border-top:1px solid rgba(155,80,224,.18);
+  border-bottom:1px solid rgba(155,80,224,.18);
 }
 .story-frame-memory .story-copy{
-  background-color:#0b0808;
   background:
-    radial-gradient(circle at 16% 22%,rgba(200,99,120,.18) 0%,transparent 42%),
-    radial-gradient(circle at 86% 82%,rgba(212,168,75,.1) 0%,transparent 36%),
-    linear-gradient(90deg,#120909 0%,#070503 100%);
+    radial-gradient(circle at 12% 18%,rgba(200,99,120,.22) 0%,transparent 40%),
+    radial-gradient(circle at 88% 80%,rgba(155,80,224,.35) 0%,transparent 46%),
+    linear-gradient(135deg,#22103e 0%,#160830 55%,#0b041c 100%);
+}
+.story-frame-memory .story-kicker{color:#c8a8f9}
+.story-frame-memory .story-title-quote{color:#d4b8ff}
+.story-frame-memory .story-rule{background:linear-gradient(90deg,#9b50e0,#c8a8f9)}
+
+/* ── Frame 3 · "Birthday Message" — warm gold-amber ── */
+.story-frame-dance{
+  background:
+    radial-gradient(circle at 65% 45%,rgba(212,168,75,.28) 0%,transparent 52%),
+    linear-gradient(135deg,#241406 0%,#160c03 60%,#0c0602 100%);
+  box-shadow:0 24px 90px rgba(212,168,75,.22),0 0 0 1px rgba(212,168,75,.2);
 }
 .story-frame-dance .story-copy{
-  background-color:#100c07;
   background:
-    radial-gradient(circle at 18% 18%,rgba(212,168,75,.13) 0%,transparent 36%),
-    radial-gradient(circle at 88% 72%,rgba(107,30,53,.26) 0%,transparent 42%),
-    linear-gradient(90deg,#140f08 0%,#070503 100%);
+    radial-gradient(circle at 10% 12%,rgba(249,200,58,.3) 0%,transparent 40%),
+    radial-gradient(circle at 90% 88%,rgba(180,100,30,.34) 0%,transparent 46%),
+    linear-gradient(135deg,#321c04 0%,#201005 55%,#120802 100%);
 }
+.story-frame-dance .story-kicker{color:#f9c83a}
+.story-frame-dance .story-title em{color:#f9c83a}
+.story-frame-dance .story-rule{background:linear-gradient(90deg,#f9c83a,#d4a84b)}
 .story-kicker{
   font-family:'Outfit';font-size:10px;font-weight:300;letter-spacing:8px;
   text-transform:uppercase;color:#d4a84b;margin-bottom:34px;
