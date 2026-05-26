@@ -27,31 +27,58 @@ button,[role="button"],a{touch-action:manipulation}
 
 /* ══ PRELOADER ══ */
 #preloader{
-  position:fixed;inset:0;z-index:9999;
+  position:fixed;
+  top:0;right:0;bottom:0;left:0; /* inset fallback for older browsers */
+  inset:0;
+  z-index:9999;
   background:radial-gradient(ellipse at 50% 40%,#1a0a2e 0%,#0a0818 100%);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  display:-webkit-box;display:-ms-flexbox;display:flex;
+  -webkit-box-orient:vertical;-webkit-box-direction:normal;
+  -ms-flex-direction:column;flex-direction:column;
+  -webkit-box-align:center;-ms-flex-align:center;align-items:center;
+  -webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;
+  overflow:hidden; /* prevent child overflow on small screens */
+  /* iOS safe area for notch devices */
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  padding-left:env(safe-area-inset-left,0px);
+  padding-right:env(safe-area-inset-right,0px);
+  /* GPU compositing for smooth transition on Android/iOS */
+  -webkit-transform:translateZ(0);transform:translateZ(0);
+  will-change:opacity,visibility;
+  -webkit-transition:opacity .9s ease,visibility .9s ease;
   transition:opacity .9s ease,visibility .9s ease;
 }
 #preloader.hide{opacity:0;visibility:hidden;pointer-events:none}
+/* Lock body scroll while preloader active */
+body.preloader-active{overflow:hidden!important;touch-action:none}
 .pre-ring{
   width:100px;height:100px;border-radius:50%;
   border:2px solid transparent;
   border-top-color:#d4a84b;border-right-color:#e8617a;
+  -webkit-animation:spin 1s linear infinite;
   animation:spin 1s linear infinite;
   margin-bottom:30px;
   box-shadow:0 0 20px rgba(212,168,75,.3);
+  -webkit-transform:translateZ(0);transform:translateZ(0);
+  will-change:transform;
 }
-@keyframes spin{to{transform:rotate(360deg)}}
+@-webkit-keyframes spin{to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
+@keyframes spin{to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
 .pre-name{
-  font-family:'Pinyon Script';font-size:clamp(56px,14vw,120px);
+  font-family:'Pinyon Script',cursive;font-size:clamp(56px,14vw,120px);
+  /* Solid fallback for browsers without background-clip:text support */
+  color:#d4a84b;
   background:linear-gradient(135deg,#f9e4b7,#d4a84b,#fff6d6,#e8617a);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
   filter:drop-shadow(0 0 40px rgba(212,168,75,.6));
+  -webkit-animation:preNamePulse 1.8s ease-in-out infinite;
   animation:preNamePulse 1.8s ease-in-out infinite;
 }
+@-webkit-keyframes preNamePulse{0%,100%{filter:drop-shadow(0 0 20px rgba(212,168,75,.4))}50%{filter:drop-shadow(0 0 60px rgba(212,168,75,1))}}
 @keyframes preNamePulse{0%,100%{filter:drop-shadow(0 0 20px rgba(212,168,75,.4))}50%{filter:drop-shadow(0 0 60px rgba(212,168,75,1))}}
 .pre-bar{width:220px;height:2px;background:rgba(255,255,255,.08);margin-top:28px;border-radius:2px;overflow:hidden}
-.pre-fill{height:100%;background:linear-gradient(90deg,var(--r),var(--g));width:0%;transition:width 2.3s ease}
+.pre-fill{height:100%;background:linear-gradient(90deg,var(--r),var(--g));width:0%;-webkit-transition:width 2.3s ease;transition:width 2.3s ease}
 .pre-text{font-family:'Outfit';font-weight:200;font-size:10px;letter-spacing:6px;color:rgba(212,168,75,.5);margin-top:12px;text-transform:uppercase}
 
 /* ══ HAPPY BIRTHDAY PRELOADER ANIMATION ══ */
@@ -75,18 +102,33 @@ button,[role="button"],a{touch-action:manipulation}
 /* Individual letter animation */
 .hb-letter{
   display:inline-block;
+  /* Solid color fallback for browsers without background-clip:text */
+  color:#e8617a;
   background:linear-gradient(135deg,#ffd6e0,#f9e4b7,#e8617a,#d4a84b,#f7b8c4,#fff6d6);
   background-size:300% 300%;
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  opacity:0;transform:translateY(40px) rotate(-8deg) scale(.6);
+  opacity:0;
+  -webkit-transform:translateY(40px) rotate(-8deg) scale(.6);
+  transform:translateY(40px) rotate(-8deg) scale(.6);
+  -webkit-animation:hbLetterIn .6s cubic-bezier(.22,1.2,.36,1) forwards, hbShimmer 4s linear 1s infinite;
   animation:hbLetterIn .6s cubic-bezier(.22,1.2,.36,1) forwards, hbShimmer 4s linear 1s infinite;
+  will-change:transform,opacity;
 }
 .hb-space{width:.35em;display:inline-block}
+@-webkit-keyframes hbLetterIn{
+  0%{opacity:0;-webkit-transform:translateY(40px) rotate(-8deg) scale(.6);transform:translateY(40px) rotate(-8deg) scale(.6)}
+  60%{opacity:1;-webkit-transform:translateY(-6px) rotate(2deg) scale(1.08);transform:translateY(-6px) rotate(2deg) scale(1.08)}
+  80%{-webkit-transform:translateY(2px) rotate(-1deg) scale(.97);transform:translateY(2px) rotate(-1deg) scale(.97)}
+  100%{opacity:1;-webkit-transform:translateY(0) rotate(0deg) scale(1);transform:translateY(0) rotate(0deg) scale(1)}
+}
 @keyframes hbLetterIn{
   0%{opacity:0;transform:translateY(40px) rotate(-8deg) scale(.6)}
   60%{opacity:1;transform:translateY(-6px) rotate(2deg) scale(1.08)}
   80%{transform:translateY(2px) rotate(-1deg) scale(.97)}
   100%{opacity:1;transform:translateY(0) rotate(0deg) scale(1)}
+}
+@-webkit-keyframes hbShimmer{
+  0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}
 }
 @keyframes hbShimmer{
   0%{background-position:0% 50%}
@@ -107,21 +149,30 @@ button,[role="button"],a{touch-action:manipulation}
 
 /* Balloons on preloader */
 .pre-balloons{
-  display:flex;gap:14px;margin-bottom:10px;
+  display:-webkit-box;display:-ms-flexbox;display:flex;gap:14px;margin-bottom:10px;
 }
 .pre-balloon{
   width:28px;height:36px;
   background:var(--bc,#e8617a);
   border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;
   position:relative;
+  -webkit-animation:preBalloonFloat 2.4s ease-in-out infinite;
   animation:preBalloonFloat 2.4s ease-in-out infinite;
+  -webkit-animation-delay:var(--bd,0s);
   animation-delay:var(--bd,0s);
+  /* Safe fallback shadow without color-mix() */
   box-shadow:0 0 12px rgba(232,97,122,.35);
-  box-shadow:0 0 12px color-mix(in srgb,var(--bc,#e8617a) 60%,transparent);
+}
+@supports(color:color-mix(in srgb,red 50%,transparent)){
+  .pre-balloon{box-shadow:0 0 12px color-mix(in srgb,var(--bc,#e8617a) 60%,transparent)}
 }
 .pre-balloon::after{
-  content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);
+  content:'';position:absolute;bottom:-10px;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);
   width:1.5px;height:10px;background:rgba(255,255,255,.4);
+}
+@-webkit-keyframes preBalloonFloat{
+  0%,100%{-webkit-transform:translateY(0) rotate(-4deg);transform:translateY(0) rotate(-4deg)}
+  50%{-webkit-transform:translateY(-10px) rotate(4deg);transform:translateY(-10px) rotate(4deg)}
 }
 @keyframes preBalloonFloat{
   0%,100%{transform:translateY(0) rotate(-4deg)}
@@ -130,12 +181,19 @@ button,[role="button"],a{touch-action:manipulation}
 
 /* Confetti particles */
 .pre-confetti-wrap{
-  position:absolute;inset:0;pointer-events:none;overflow:hidden;
+  position:absolute;
+  top:0;right:0;bottom:0;left:0;
+  inset:0;pointer-events:none;overflow:hidden;
 }
 .pre-conf{
   position:absolute;width:7px;height:7px;border-radius:2px;
+  -webkit-animation:confFall linear infinite;
   animation:confFall linear infinite;
   opacity:.85;
+}
+@-webkit-keyframes confFall{
+  0%{-webkit-transform:translateY(-10px) rotate(0deg);transform:translateY(-10px) rotate(0deg);opacity:.85}
+  100%{-webkit-transform:translateY(100vh) rotate(720deg);transform:translateY(100vh) rotate(720deg);opacity:0}
 }
 @keyframes confFall{
   0%{transform:translateY(-10px) rotate(0deg);opacity:.85}
