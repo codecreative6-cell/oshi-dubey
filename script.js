@@ -1,4 +1,4 @@
-﻿/* ══ PRELOADER — HAPPY BIRTHDAY ANIMATION ══ */
+/* ══ PRELOADER — HAPPY BIRTHDAY ANIMATION ══ */
 (function(){
   const phrase = "Happy Birthday!";
   const colors = ["#ffd6e0","#f9e4b7","#e8617a","#d4a84b","#f7b8c4","#9b50e0","#2ecc90","#fff6d6"];
@@ -135,25 +135,7 @@ function spawnPetal(){
 }
 setInterval(spawnPetal,450);for(let i=0;i<12;i++)setTimeout(spawnPetal,i*150);
 
-/* ══ TYPEWRITER ══ */
-const quotes=[
-  "She is clothed in strength and dignity, and she laughs without fear of the future.",
-  "There is no force equal to a woman determined to rise.",
-  "She wore her scars as her best outfit — a stunning dress made of hellfire, and she was the queen who set it ablaze.",
-  "To the world you may be one person, but to one person you may be the world."
-];
-let qi=0,ci=0,typing=true;
-const tw=document.getElementById('typewriter');
-function typeStep(){
-  if(typing){
-    if(ci<quotes[qi].length){tw.textContent=quotes[qi].slice(0,++ci);setTimeout(typeStep,38)}
-    else{typing=false;setTimeout(typeStep,2800)}
-  } else {
-    if(ci>0){tw.textContent=quotes[qi].slice(0,--ci);setTimeout(typeStep,16)}
-    else{typing=true;qi=(qi+1)%quotes.length;setTimeout(typeStep,400)}
-  }
-}
-setTimeout(typeStep,3500);
+
 
 /* ══ IMAGES ══ */
 const imgList=[
@@ -236,6 +218,36 @@ const obs=new IntersectionObserver(entries=>{
 },{threshold:.08});
 document.querySelectorAll('.g-item,.reveal').forEach(el=>obs.observe(el));
 
+/* ── msgs-grid: add anim-in when in view ── */
+const msgsObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('anim-in');msgsObs.unobserve(e.target)}});
+},{threshold:.06});
+document.querySelectorAll('.msgs-grid').forEach(el=>msgsObs.observe(el));
+
+/* ── Story frames: add story-vis when in view ── */
+const storyObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('story-vis');storyObs.unobserve(e.target)}});
+},{threshold:.08});
+document.querySelectorAll('.story-frame').forEach(el=>storyObs.observe(el));
+
+/* ── Cake section: add cake-vis when in view ── */
+const cakeObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('cake-vis');cakeObs.unobserve(e.target)}});
+},{threshold:.06});
+document.querySelectorAll('.cake-section').forEach(el=>cakeObs.observe(el));
+
+/* ── Typewriter section: add tw-vis when in view ── */
+const twObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('tw-vis');twObs.unobserve(e.target)}});
+},{threshold:.1});
+document.querySelectorAll('.tw-section').forEach(el=>twObs.observe(el));
+
+/* ── Section badges: add badge-in when in view ── */
+const badgeObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('badge-in');badgeObs.unobserve(e.target)}});
+},{threshold:.5});
+document.querySelectorAll('.section-badge').forEach(el=>badgeObs.observe(el));
+
 /* ══ LIGHTBOX ══ */
 let lbIdx=0;
 function openLB(i){lbIdx=i;document.getElementById('lbImg').src=imgList[i];document.getElementById('lbCt').textContent=`${i+1} / ${imgList.length}`;document.getElementById('lb').classList.add('open');document.body.style.overflow='hidden'}
@@ -313,3 +325,156 @@ function blowCandles(){
 
 /* auto burst on load — single gentle burst */
 setTimeout(()=>{launchManyFireworks();launchConfetti();},3000);
+
+/* ══ FLOATING HEARTS emitter ══ */
+const heartEmojis=['♥','🌸','✦','💛','🌟','✨','💖'];
+function spawnHeart(){
+  const h=document.createElement('span');
+  h.className='heart-float';
+  h.textContent=heartEmojis[Math.floor(Math.random()*heartEmojis.length)];
+  h.style.left=(5+Math.random()*90)+'vw';
+  h.style.bottom='0px';
+  h.style.color=['#e8617a','#f7b8c4','#d4a84b','#c8a8f9','#fff6d6'][Math.floor(Math.random()*5)];
+  h.style.setProperty('--hx',(Math.random()*60-30)+'px');
+  const dur=6+Math.random()*7;
+  h.style.animationDuration=dur+'s';
+  h.style.animationDelay=(Math.random()*1.5)+'s';
+  h.style.fontSize=(10+Math.random()*14)+'px';
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),(dur+2)*1000);
+}
+setInterval(spawnHeart,1400);
+for(let i=0;i<5;i++) setTimeout(spawnHeart,i*400);
+
+/* ══ CLICK RIPPLE ══ */
+document.addEventListener('click',e=>{
+  const r=document.createElement('div');
+  r.className='page-ripple';
+  r.style.left=e.clientX+'px';
+  r.style.top=e.clientY+'px';
+  document.body.appendChild(r);
+  r.addEventListener('animationend',()=>r.remove());
+});
+
+/* ══ GOLD DUST on scroll ══ */
+let lastDustY=0;
+window.addEventListener('scroll',()=>{
+  const sy=window.scrollY;
+  if(Math.abs(sy-lastDustY)>60){
+    lastDustY=sy;
+    for(let i=0;i<3;i++){
+      const d=document.createElement('div');
+      d.className='gdust';
+      d.style.left=(10+Math.random()*80)+'vw';
+      d.style.top=(20+Math.random()*60)+'vh';
+      d.style.setProperty('--dx',(Math.random()*50-25)+'px');
+      const dur=2.5+Math.random()*2;
+      d.style.animationDuration=dur+'s';
+      document.body.appendChild(d);
+      setTimeout(()=>d.remove(),(dur+.5)*1000);
+    }
+  }
+});
+
+/* ══ MOUSE PARALLAX on hero elements ══ */
+const heroName=document.querySelector('.hero-name');
+const heroSub=document.querySelector('.hero-sub');
+const namGlow=document.querySelector('.name-glow');
+document.addEventListener('mousemove',e=>{
+  const xN=(e.clientX/window.innerWidth-.5)*18;
+  const yN=(e.clientY/window.innerHeight-.5)*10;
+  if(heroName) heroName.style.transform=`translate(${xN*.4}px,${yN*.4}px)`;
+  if(heroSub) heroSub.style.transform=`translate(${xN*.2}px,${yN*.2}px)`;
+  if(namGlow) namGlow.style.transform=`translate(${xN*.6}px,${yN*.6}px)`;
+  /* aurora mouse drift */
+  const aurora=document.getElementById('aurora');
+  if(aurora) aurora.style.transform=`translate(${xN*.35}px,${yN*.25}px)`;
+});
+
+/* ══ SCROLL PARALLAX on story images ══ */
+window.addEventListener('scroll',()=>{
+  document.querySelectorAll('.story-media img').forEach(img=>{
+    const rect=img.closest('.story-frame').getBoundingClientRect();
+    const center=rect.top+rect.height/2-window.innerHeight/2;
+    const shift=center*.06;
+    img.style.transform=`scale(1.08) translateY(${shift}px)`;
+  });
+  /* hero subtle scroll push */
+  const heroEl=document.querySelector('.hero');
+  if(heroEl){
+    const sy=window.scrollY;
+    const hi=heroEl.offsetHeight;
+    if(sy<hi){
+      const pct=sy/hi;
+      if(heroName) heroName.style.transform=`translateY(${pct*28}px)`;
+    }
+  }
+},{passive:true});
+
+/* ══ GALLERY heading sparkle burst ── */
+(()=>{
+  const galH=document.querySelector('.gallery-section h2');
+  if(!galH) return;
+  const galObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        let count=0;
+        const burst=setInterval(()=>{
+          const s=document.createElement('span');
+          s.className='heart-float';
+          s.textContent=['✦','✨','🌸','⭐','💫'][Math.floor(Math.random()*5)];
+          const rect=galH.getBoundingClientRect();
+          s.style.left=(rect.left+Math.random()*rect.width)+'px';
+          s.style.top=(rect.bottom+window.scrollY)+'px';
+          s.style.position='absolute';
+          s.style.color='#d4a84b';
+          s.style.animationDuration='2.5s';
+          s.style.fontSize=(10+Math.random()*12)+'px';
+          document.body.appendChild(s);
+          setTimeout(()=>s.remove(),3000);
+          if(++count>14) clearInterval(burst);
+        },90);
+        galObs.unobserve(e.target);
+      }
+    });
+  },{threshold:.5});
+  galObs.observe(galH);
+})();
+
+/* ══ WISH BODY: stagger paragraph ── */
+(()=>{
+  const wb=document.querySelector('.wish-body');
+  if(!wb) return;
+  const wObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        wb.style.opacity='1';wb.style.transform='none';
+        wObs.unobserve(e.target);
+      }
+    });
+  },{threshold:.2});
+  wObs.observe(wb);
+})();
+
+/* ══ MSG CARDS: mini sparkle on hover ── */
+document.querySelectorAll('.msg-card').forEach(card=>{
+  card.addEventListener('mouseenter',()=>{
+    for(let i=0;i<6;i++){
+      const s=document.createElement('span');
+      s.className='heart-float';
+      s.textContent=['✦','✨','🌸','💫','⭐'][Math.floor(Math.random()*5)];
+      const rect=card.getBoundingClientRect();
+      s.style.left=(rect.left+Math.random()*rect.width)+'px';
+      s.style.top=(rect.top+window.scrollY+rect.height*.7)+'px';
+      s.style.position='absolute';
+      s.style.animationDuration='2s';
+      s.style.fontSize=(8+Math.random()*10)+'px';
+      s.style.color=card.style.getPropertyValue('--mc-col')||'#d4a84b';
+      document.body.appendChild(s);
+      setTimeout(()=>s.remove(),2500);
+    }
+  });
+});
+
+/* ══ MESSAGE CARDS — no JS needed ══ */
+

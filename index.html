@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -6,22 +6,17 @@
 <title>Happy Birthday Oshi 🎂✨</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Pinyon+Script&family=Outfit:wght@100;200;300;400&family=Great+Vibes&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <!-- PRELOADER -->
 <div id="preloader">
-  <!-- Floating confetti particles -->
   <div class="pre-confetti-wrap" id="preConfetti"></div>
-
-  <!-- Happy Birthday animated heading -->
   <div class="pre-hb-wrap">
     <div class="pre-hb" id="preHB"></div>
     <div class="pre-hb-glow"></div>
   </div>
-
-  <!-- Balloons row -->
   <div class="pre-balloons">
     <div class="pre-balloon" style="--bc:#e8617a;--bd:0s"></div>
     <div class="pre-balloon" style="--bc:#d4a84b;--bd:.3s"></div>
@@ -29,22 +24,16 @@
     <div class="pre-balloon" style="--bc:#f7b8c4;--bd:.2s"></div>
     <div class="pre-balloon" style="--bc:#2ecc90;--bd:.5s"></div>
   </div>
-
   <div class="pre-ring"></div>
   <div class="pre-name">Oshi Dubey</div>
   <div class="pre-bar"><div class="pre-fill" id="prefill"></div></div>
   <p class="pre-text">✦ loading magic ✦</p>
 </div>
 
-<!-- SCROLL PROGRESS -->
 <div id="progress"></div>
-
-<!-- CURSOR -->
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
 <canvas id="sparkle-canvas"></canvas>
-
-<!-- BACKGROUND -->
 <div id="aurora">
   <div class="ab ab1"></div><div class="ab ab2"></div>
   <div class="ab ab3"></div><div class="ab ab4"></div>
@@ -53,7 +42,7 @@
 <canvas id="fireworks"></canvas>
 <div class="cf-wrap" id="cfWrap"></div>
 
-<!-- ════ HERO ════ -->
+<!-- HERO -->
 <section class="hero">
   <div class="gold-line"></div>
   <div class="balloon-wrap">
@@ -79,7 +68,163 @@
   </div>
 </section>
 
-<!-- ════ WISH ════ -->
+
+<!-- MESSAGE CARDS -->
+<section class="msgs-section reveal">
+  <div class="section-badge">✦ &nbsp; Words From The Heart &nbsp; ✦</div>
+  <h2 class="msgs-title">For You, Oshi</h2>
+  <p class="msgs-sub">a few truths we never want you to forget</p>
+  <div class="msgs-grid">
+
+    <div class="msg-card" style="--mc-bg:linear-gradient(135deg,#2a0a14 0%,#150508 100%);--mc-border:rgba(232,97,122,.25);--mc-glow:0 0 40px rgba(232,97,122,.15);--mc-line:linear-gradient(90deg,#e8617a,transparent);--mc-col:#e8617a;--mc-dur:6s;--mc-del:0s">
+      <span class="mc-emoji">🌸</span>
+      <p class="mc-msg">Your laughter fills every room with the warmest, most beautiful kind of magic.</p>
+      <span class="mc-tag">— for Oshi ✦</span>
+    </div>
+
+    <div class="msg-card" style="--mc-bg:linear-gradient(135deg,#1e1204 0%,#0e0802 100%);--mc-border:rgba(212,168,75,.25);--mc-glow:0 0 40px rgba(212,168,75,.15);--mc-line:linear-gradient(90deg,#d4a84b,transparent);--mc-col:#d4a84b;--mc-dur:7s;--mc-del:.8s">
+      <span class="mc-emoji">✨</span>
+      <p class="mc-msg">You were born to shine — and oh, how brilliantly, endlessly you do.</p>
+      <span class="mc-tag">— for Oshi ✦</span>
+    </div>
+
+    <div class="msg-card" style="--mc-bg:linear-gradient(135deg,#130820 0%,#080410 100%);--mc-border:rgba(155,80,224,.25);--mc-glow:0 0 40px rgba(155,80,224,.15);--mc-line:linear-gradient(90deg,#9b50e0,transparent);--mc-col:#c8a8f9;--mc-dur:6.5s;--mc-del:1.4s">
+      <span class="mc-emoji">💜</span>
+      <p class="mc-msg">Your dreams are not just wishes, Oshi — they are quiet prophecies coming true.</p>
+      <span class="mc-tag">— for Oshi ✦</span>
+    </div>
+
+    <div class="msg-card" style="--mc-bg:linear-gradient(135deg,#041a16 0%,#020d0b 100%);--mc-border:rgba(46,168,142,.22);--mc-glow:0 0 40px rgba(46,168,142,.13);--mc-line:linear-gradient(90deg,#2ea88e,transparent);--mc-col:#2ea88e;--mc-dur:7.5s;--mc-del:.4s">
+      <span class="mc-emoji">🌟</span>
+      <p class="mc-msg">Every step you take, the world rearranges itself just to meet you there.</p>
+      <span class="mc-tag">— for Oshi ✦</span>
+    </div>
+
+    <div class="msg-card" style="--mc-bg:linear-gradient(135deg,#280810 0%,#120408 100%);--mc-border:rgba(247,184,196,.2);--mc-glow:0 0 40px rgba(247,184,196,.12);--mc-line:linear-gradient(90deg,#f7b8c4,transparent);--mc-col:#f7b8c4;--mc-dur:6.8s;--mc-del:1.1s">
+      <span class="mc-emoji">💖</span>
+      <p class="mc-msg">Brave, bold, and breathtaking — you are everything, and so much more.</p>
+      <span class="mc-tag">— for Oshi ✦</span>
+    </div>
+
+    <div class="msg-card" style="--mc-bg:linear-gradient(135deg,#1a0e02 0%,#0c0701 100%);--mc-border:rgba(249,200,58,.22);--mc-glow:0 0 40px rgba(249,200,58,.13);--mc-line:linear-gradient(90deg,#f9c83a,transparent);--mc-col:#f9c83a;--mc-dur:7.2s;--mc-del:1.8s">
+      <span class="mc-emoji">🎂</span>
+      <p class="mc-msg">The universe saved its finest, most magical work for you. Happy Birthday, Oshi.</p>
+      <span class="mc-tag">— forever yours ✦</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- 3D CAROUSEL -->
+<section class="carousel-section reveal">
+  <div class="sec-head">
+    <h2>A Glimpse of You</h2>
+    <p>hover to pause · click to open</p>
+  </div>
+  <div class="carousel-scene">
+    <div class="carousel-ring" id="cRing"></div>
+  </div>
+</section>
+
+<!-- CINEMATIC STORY FRAMES -->
+<section class="story-section reveal" aria-label="Birthday story frames">
+  <article class="story-frame story-frame-stage">
+    <figure class="story-media">
+      <img src="img/img (22).JPG" alt="Oshi in red" loading="lazy">
+    </figure>
+    <div class="story-copy">
+      <p class="story-kicker">This Year</p>
+      <h2 class="story-title">
+        <span>May every</span>
+        <span>stage be <em>yours.</em></span>
+      </h2>
+      <p class="story-text">May this birthday mark the beginning of the most beautiful chapter yet &mdash; full of the music, the movement, and the magic that only Oshi Dubey can bring.</p>
+      <div class="story-rule" aria-hidden="true"></div>
+    </div>
+  </article>
+  <article class="story-frame story-frame-memory">
+    <figure class="story-media">
+      <img src="img/img (27).JPG" alt="A childhood memory of Oshi" loading="lazy">
+    </figure>
+    <div class="story-copy">
+      <p class="story-kicker">Last Frame</p>
+      <h2 class="story-title story-title-quote">&quot;She remembered who she was, and the game changed.&quot;</h2>
+      <p class="story-text">That's Oshi. Every single time.</p>
+      <div class="story-rule" aria-hidden="true"></div>
+    </div>
+  </article>
+  <article class="story-frame story-frame-dance">
+    <figure class="story-media">
+      <img src="img/img (2).JPG" alt="Oshi smiling" loading="lazy">
+    </figure>
+    <div class="story-copy">
+      <p class="story-kicker">A Birthday Message</p>
+      <h2 class="story-title">
+        <span>She moves</span><span>like the world</span>
+        <span>was made <em>for</em></span><span><em>her.</em></span>
+      </h2>
+      <p class="story-text">There are people who dance &mdash; and then there is Oshi. She doesn't just perform; she transforms every space she enters into something alive, something electric, something unforgettable.</p>
+      <div class="story-rule" aria-hidden="true"></div>
+    </div>
+  </article>
+</section>
+
+<!-- CAKE -->
+<section class="cake-section">
+  <h2 class="cake-title">Make a <span>Wish</span> 🎂</h2>
+  <p class="cake-sub">click the cake to blow out all the candles</p>
+  <div class="cake-scene" id="cakeScene" onclick="blowCandles()">
+    <div class="cake-sparkle" style="top:-20px;left:15%;--dx:8px;--dy:-12px;animation-duration:2.2s">✦</div>
+    <div class="cake-sparkle" style="top:-10px;right:18%;--dx:-10px;--dy:-8px;animation-duration:1.8s;color:#d4a84b">★</div>
+    <div class="cake-sparkle" style="top:20%;left:-20px;--dx:-14px;--dy:6px;animation-duration:2.6s;color:#e8617a">✦</div>
+    <div class="cake-sparkle" style="top:35%;right:-18px;--dx:12px;--dy:-6px;animation-duration:2s;color:#f7b8c4">✦</div>
+    <div class="cake-sparkle" style="bottom:30%;left:5%;--dx:-8px;--dy:10px;animation-duration:3s;color:#9060f0">★</div>
+    <div class="cake-sparkle" style="bottom:25%;right:6%;--dx:10px;--dy:8px;animation-duration:2.4s;color:#40c080">✦</div>
+    <div class="candles-row" id="candlesRow">
+      <div class="candle"><div class="flame-wrap"><div class="flame-outer"></div><div class="flame-inner"></div></div><div class="candle-base"></div><div class="candle-body cb1"></div></div>
+      <div class="candle"><div class="flame-wrap"><div class="flame-outer"></div><div class="flame-inner"></div></div><div class="candle-base"></div><div class="candle-body cb2"></div></div>
+      <div class="candle"><div class="flame-wrap"><div class="flame-outer"></div><div class="flame-inner"></div></div><div class="candle-base"></div><div class="candle-body cb3"></div></div>
+      <div class="candle"><div class="flame-wrap"><div class="flame-outer"></div><div class="flame-inner"></div></div><div class="candle-base"></div><div class="candle-body cb4"></div></div>
+      <div class="candle"><div class="flame-wrap"><div class="flame-outer"></div><div class="flame-inner"></div></div><div class="candle-base"></div><div class="candle-body cb5"></div></div>
+    </div>
+    <div class="tier1">
+      <svg class="frosting1" viewBox="0 0 280 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,14 Q14,2 28,14 Q42,2 56,14 Q70,2 84,14 Q98,2 112,14 Q126,2 140,14 Q154,2 168,14 Q182,2 196,14 Q210,2 224,14 Q238,2 252,14 Q266,2 280,14 L280,20 L0,20 Z" fill="#2ecc90"/><path d="M0,14 Q14,2 28,14 Q42,2 56,14 Q70,2 84,14 Q98,2 112,14 Q126,2 140,14 Q154,2 168,14 Q182,2 196,14 Q210,2 224,14 Q238,2 252,14 Q266,2 280,14" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/></svg>
+      <div class="tier1-body"><div class="tier1-deco">🌿 🌸 🌿</div></div>
+    </div>
+    <div class="tier2">
+      <svg class="frosting2" viewBox="0 0 370 22" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,15 Q18,2 37,15 Q55,2 74,15 Q92,2 111,15 Q129,2 148,15 Q166,2 185,15 Q203,2 222,15 Q240,2 259,15 Q277,2 296,15 Q314,2 333,15 Q351,2 370,15 L370,22 L0,22 Z" fill="#f05070"/><path d="M0,15 Q18,2 37,15 Q55,2 74,15 Q92,2 111,15 Q129,2 148,15 Q166,2 185,15 Q203,2 222,15 Q240,2 259,15 Q277,2 296,15 Q314,2 333,15 Q351,2 370,15" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/></svg>
+      <div class="tier2-body"><div class="tier2-name"><span class="spark">✨</span> Oshi <span class="spark">✨</span></div></div>
+    </div>
+    <div class="tier3">
+      <svg class="frosting3" viewBox="0 0 460 24" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,16 Q23,2 46,16 Q69,2 92,16 Q115,2 138,16 Q161,2 184,16 Q207,2 230,16 Q253,2 276,16 Q299,2 322,16 Q345,2 368,16 Q391,2 414,16 Q437,2 460,16 L460,24 L0,24 Z" fill="#9b50e0"/><path d="M0,16 Q23,2 46,16 Q69,2 92,16 Q115,2 138,16 Q161,2 184,16 Q207,2 230,16 Q253,2 276,16 Q299,2 322,16 Q345,2 368,16 Q391,2 414,16 Q437,2 460,16" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/></svg>
+      <div class="tier3-body"><div class="tier3-text">Happy Birthday 🎂</div></div>
+    </div>
+    <div class="cake-plate"></div>
+  </div>
+  <div class="blow-area">
+    <button class="blow-btn" id="blowBtn">🎉 Click the Cake to Blow the Candles!</button>
+    <span class="blow-sub" id="blowSub">close your eyes &amp; make a wish first</span>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section">
+  <h2>Moments &amp; Memories</h2>
+  <p class="gallery-sub">every frame tells your story</p>
+  <div class="gallery" id="gallery"></div>
+</section>
+
+<!-- HBD CLOSING SECTION -->
+<section class="hbd-closing reveal">
+  <p class="foot-name">Happy Birthday, Oshi!</p>
+  <p class="foot-note">🌸 &nbsp; Wishing you magic today and always &nbsp; 🌸</p>
+  <div class="foot-hearts">
+    <span class="fh">♥</span><span class="fh">♥</span><span class="fh">♥</span>
+    <span class="fh">♥</span><span class="fh">♥</span>
+  </div>
+</section>
+
+<!-- WISH -->
 <section class="wish-wrap reveal">
   <div class="section-badge">✦ &nbsp; Birthday Wishes &nbsp; ✦</div>
   <p class="wish-body">
@@ -92,177 +237,8 @@
   <p class="sig">With all the love 💛</p>
 </section>
 
-<!-- ════ TYPEWRITER ════ -->
-<div class="tw-section reveal">
-  <p id="typewriter"></p>
-</div>
-
-<!-- ════ 3D CAROUSEL ════ -->
-<section class="carousel-section reveal">
-  <div class="sec-head">
-    <h2>A Glimpse of You</h2>
-    <p>hover to pause · click to open</p>
-  </div>
-  <div class="carousel-scene">
-    <div class="carousel-ring" id="cRing"></div>
-  </div>
-</section>
-
-<!-- ==== CINEMATIC STORY FRAMES ==== -->
-<section class="story-section reveal" aria-label="Birthday story frames">
-  <article class="story-frame story-frame-stage">
-    <figure class="story-media">
-      <img src="img/img (22).JPG" alt="Oshi in red" loading="lazy">
-    </figure>
-    <div class="story-copy">
-      <p class="story-kicker">This Year</p>
-      <h2 class="story-title">
-        <span>May every</span>
-        <span>stage be <em>yours.</em></span>
-      </h2>
-      <p class="story-text">
-        May this birthday mark the beginning of the most beautiful chapter yet &mdash; full of the music,
-        the movement, and the magic that only Oshi Dubey can bring.
-      </p>
-      <div class="story-rule" aria-hidden="true"></div>
-    </div>
-  </article>
-
-  <article class="story-frame story-frame-memory">
-    <figure class="story-media">
-      <img src="img/img (27).JPG" alt="A childhood memory of Oshi" loading="lazy">
-    </figure>
-    <div class="story-copy">
-      <p class="story-kicker">Last Frame</p>
-      <h2 class="story-title story-title-quote">&quot;She remembered who she was, and the game changed.&quot;</h2>
-      <p class="story-text">That's Oshi. Every single time.</p>
-      <div class="story-rule" aria-hidden="true"></div>
-    </div>
-  </article>
-
-  <article class="story-frame story-frame-dance">
-    <figure class="story-media">
-      <img src="img/img (2).JPG" alt="Oshi smiling" loading="lazy">
-    </figure>
-    <div class="story-copy">
-      <p class="story-kicker">A Birthday Message</p>
-      <h2 class="story-title">
-        <span>She moves</span>
-        <span>like the world</span>
-        <span>was made <em>for</em></span>
-        <span><em>her.</em></span>
-      </h2>
-      <p class="story-text">
-        There are people who dance &mdash; and then there is Oshi. She doesn't just perform;
-        she transforms every space she enters into something alive, something electric, something unforgettable.
-      </p>
-      <div class="story-rule" aria-hidden="true"></div>
-    </div>
-  </article>
-</section>
-
-<!-- ════ ILLUSTRATED CAKE SECTION ════ -->
-<section class="cake-section">
-  <h2 class="cake-title">Make a <span>Wish</span> 🎂</h2>
-  <p class="cake-sub">click the cake to blow out all the candles</p>
-
-  <div class="cake-scene" id="cakeScene" onclick="blowCandles()">
-    <!-- sparkles around cake -->
-    <div class="cake-sparkle" style="top:-20px;left:15%;--dx:8px;--dy:-12px;animation-duration:2.2s">✦</div>
-    <div class="cake-sparkle" style="top:-10px;right:18%;--dx:-10px;--dy:-8px;animation-duration:1.8s;color:#d4a84b">★</div>
-    <div class="cake-sparkle" style="top:20%;left:-20px;--dx:-14px;--dy:6px;animation-duration:2.6s;color:#e8617a">✦</div>
-    <div class="cake-sparkle" style="top:35%;right:-18px;--dx:12px;--dy:-6px;animation-duration:2s;color:#f7b8c4">✦</div>
-    <div class="cake-sparkle" style="bottom:30%;left:5%;--dx:-8px;--dy:10px;animation-duration:3s;color:#9060f0">★</div>
-    <div class="cake-sparkle" style="bottom:25%;right:6%;--dx:10px;--dy:8px;animation-duration:2.4s;color:#40c080">✦</div>
-
-    <!-- CANDLES -->
-    <div class="candles-row" id="candlesRow">
-      <div class="candle">
-        <div class="flame-wrap"><div class="flame-outer"></div><div class="flame-inner"></div></div>
-        <div class="candle-base"></div>
-        <div class="candle-body cb1"></div>
-      </div>
-      <div class="candle">
-        <div class="flame-wrap"><div class="flame-outer"></div><div class="flame-inner"></div></div>
-        <div class="candle-base"></div>
-        <div class="candle-body cb2"></div>
-      </div>
-      <div class="candle">
-        <div class="flame-wrap"><div class="flame-outer"></div><div class="flame-inner"></div></div>
-        <div class="candle-base"></div>
-        <div class="candle-body cb3"></div>
-      </div>
-      <div class="candle">
-        <div class="flame-wrap"><div class="flame-outer"></div><div class="flame-inner"></div></div>
-        <div class="candle-base"></div>
-        <div class="candle-body cb4"></div>
-      </div>
-      <div class="candle">
-        <div class="flame-wrap"><div class="flame-outer"></div><div class="flame-inner"></div></div>
-        <div class="candle-base"></div>
-        <div class="candle-body cb5"></div>
-      </div>
-    </div>
-
-    <!-- TIER 1 — GREEN TOP -->
-    <div class="tier1">
-      <svg class="frosting1" viewBox="0 0 280 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,14 Q14,2 28,14 Q42,2 56,14 Q70,2 84,14 Q98,2 112,14 Q126,2 140,14 Q154,2 168,14 Q182,2 196,14 Q210,2 224,14 Q238,2 252,14 Q266,2 280,14 L280,20 L0,20 Z" fill="#2ecc90"/>
-        <path d="M0,14 Q14,2 28,14 Q42,2 56,14 Q70,2 84,14 Q98,2 112,14 Q126,2 140,14 Q154,2 168,14 Q182,2 196,14 Q210,2 224,14 Q238,2 252,14 Q266,2 280,14" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/>
-      </svg>
-      <div class="tier1-body">
-        <div class="tier1-deco">🌿 🌸 🌿</div>
-      </div>
-    </div>
-
-    <!-- TIER 2 — PINK/RED MIDDLE with name -->
-    <div class="tier2">
-      <svg class="frosting2" viewBox="0 0 370 22" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,15 Q18,2 37,15 Q55,2 74,15 Q92,2 111,15 Q129,2 148,15 Q166,2 185,15 Q203,2 222,15 Q240,2 259,15 Q277,2 296,15 Q314,2 333,15 Q351,2 370,15 L370,22 L0,22 Z" fill="#f05070"/>
-        <path d="M0,15 Q18,2 37,15 Q55,2 74,15 Q92,2 111,15 Q129,2 148,15 Q166,2 185,15 Q203,2 222,15 Q240,2 259,15 Q277,2 296,15 Q314,2 333,15 Q351,2 370,15" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/>
-      </svg>
-      <div class="tier2-body">
-        <div class="tier2-name"><span class="spark">✨</span> Oshi <span class="spark">✨</span></div>
-      </div>
-    </div>
-
-    <!-- TIER 3 — PURPLE BOTTOM with Happy Birthday -->
-    <div class="tier3">
-      <svg class="frosting3" viewBox="0 0 460 24" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,16 Q23,2 46,16 Q69,2 92,16 Q115,2 138,16 Q161,2 184,16 Q207,2 230,16 Q253,2 276,16 Q299,2 322,16 Q345,2 368,16 Q391,2 414,16 Q437,2 460,16 L460,24 L0,24 Z" fill="#9b50e0"/>
-        <path d="M0,16 Q23,2 46,16 Q69,2 92,16 Q115,2 138,16 Q161,2 184,16 Q207,2 230,16 Q253,2 276,16 Q299,2 322,16 Q345,2 368,16 Q391,2 414,16 Q437,2 460,16" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
-      </svg>
-      <div class="tier3-body">
-        <div class="tier3-text">Happy Birthday 🎂</div>
-      </div>
-    </div>
-
-    <!-- PLATE -->
-    <div class="cake-plate"></div>
-  </div><!-- /cake-scene -->
-
-  <div class="blow-area">
-    <button class="blow-btn" id="blowBtn">🎉 Click the Cake to Blow the Candles!</button>
-    <span class="blow-sub" id="blowSub">close your eyes & make a wish first</span>
-  </div>
-</section>
-
-<!-- ════ GALLERY ════ -->
-<section class="gallery-section">
-  <h2>Moments & Memories</h2>
-  <p class="gallery-sub">every frame tells your story</p>
-  <div class="gallery" id="gallery"></div>
-</section>
-
-<!-- ════ FOOTER ════ -->
-<footer class="reveal">
-  <p class="foot-name">Happy Birthday, Oshi!</p>
-  <p class="foot-note">🌸 &nbsp; Wishing you magic today and always &nbsp; 🌸</p>
-  <div class="foot-hearts">
-    <span class="fh">♥</span><span class="fh">♥</span><span class="fh">♥</span>
-    <span class="fh">♥</span><span class="fh">♥</span>
-  </div>
-</footer>
+<!-- FOOTER -->
+<footer></footer>
 
 <!-- LIGHTBOX -->
 <div class="lb" id="lb">
