@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+<meta name="theme-color" content="#0a0818"/>
+<meta name="format-detection" content="telephone=no"/>
 <title>Happy Birthday Oshi 🎂✨</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Pinyon+Script&family=Outfit:wght@100;200;300;400&family=Great+Vibes&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
@@ -51,8 +53,8 @@
     <div class="balloon b5"></div><div class="balloon b6"></div>
     <div class="balloon b7"></div>
   </div>
-  <div class="orbit-ring"><div class="orbit-dot"></div></div>
-  <div class="orbit-ring"><div class="orbit-dot"></div></div>
+  <div class="orbit-ring orbit-large"><div class="orbit-dot"></div></div>
+  <div class="orbit-ring orbit-small"><div class="orbit-dot"></div></div>
   <div class="hero-inner">
     <p class="eyebrow">✦ &nbsp; A Birthday Celebration &nbsp; ✦</p>
     <div class="name-wrap">
@@ -241,12 +243,12 @@
 <footer></footer>
 
 <!-- LIGHTBOX -->
-<div class="lb" id="lb">
-  <div class="lb-x" onclick="closeLB()">✕</div>
-  <img id="lbImg" src="" alt="">
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="lb-x" type="button" onclick="closeLB()" aria-label="Close photo viewer">✕</button>
+  <img id="lbImg" src="" alt="Selected birthday memory">
   <div class="lb-nav">
-    <button onclick="lbNav(-1)">←</button>
-    <button onclick="lbNav(1)">→</button>
+    <button type="button" onclick="lbNav(-1)" aria-label="Previous photo">←</button>
+    <button type="button" onclick="lbNav(1)" aria-label="Next photo">→</button>
   </div>
   <div class="lb-ct" id="lbCt"></div>
 </div>
