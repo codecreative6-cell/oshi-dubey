@@ -27,6 +27,26 @@
   transition:all .3s ease;color:#fff;
 ">🎵</button>
 
+<!-- TAP FOR SOUND HINT (auto-hides after first tap) -->
+<div id="soundHint" style="
+  position:fixed;bottom:30px;right:80px;z-index:9999;
+  background:rgba(20,10,30,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border:1px solid rgba(212,168,75,.35);border-radius:999px;
+  padding:8px 14px;font-size:12.5px;color:#fce8c0;white-space:nowrap;
+  font-family:'Outfit',sans-serif;letter-spacing:.02em;
+  box-shadow:0 0 16px rgba(212,168,75,.2);
+  animation:soundHintPulse 1.6s ease-in-out infinite;
+  pointer-events:none;
+  transition:opacity .4s ease, transform .4s ease;
+">🔊 tap anywhere for sound</div>
+<style>
+@keyframes soundHintPulse{
+  0%,100%{ opacity:.85; transform:translateY(0); }
+  50%{ opacity:1; transform:translateY(-3px); }
+}
+#soundHint.hidden{ opacity:0!important; transform:translateY(8px)!important; }
+</style>
+
 <!-- PRELOADER -->
 <div id="preloader">
 
@@ -380,6 +400,7 @@
 (function(){
   const aud = document.getElementById('bgMusic');
   const btn = document.getElementById('musicBtn');
+  const hint = document.getElementById('soundHint');
   if(!aud) return;
 
   aud.volume = 0.7;
@@ -396,6 +417,10 @@
     btn.style.opacity = on ? '1' : '0.6';
   }
 
+  function hideHint(){
+    if(hint) hint.classList.add('hidden');
+  }
+
   /* ── Step 1: Start MUTED immediately — allowed everywhere ── */
   function startMuted(){
     aud.muted = true;
@@ -406,19 +431,24 @@
   function unlock(){
     if(unlocked) return;
     unlocked = true;
+    hideHint();
     aud.muted  = false;
     aud.volume = 0.7;
     aud.play().then(syncBtn).catch(function(){});
   }
 
-  var GESTURES = ['click','touchstart','touchend','keydown','pointerdown','scroll','wheel','mousemove'];
+  /* Capture phase + non-passive so we win the race against any
+     button/element that might stop propagation, and so iOS Safari
+     counts this as a valid user-gesture call to play(). */
+  var GESTURES = ['pointerdown','touchstart','mousedown','keydown','click'];
   GESTURES.forEach(function(ev){
-    window.addEventListener(ev, unlock, { passive:true, once:true });
+    document.addEventListener(ev, unlock, { capture:true, once:true });
   });
 
   /* ── Manual toggle (music button) ── */
   window.toggleMusic = function(){
     unlocked = true;
+    hideHint();
     if(!aud.paused && !aud.muted){
       aud.pause();
     } else {
