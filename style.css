@@ -25,93 +25,180 @@ img,svg{height:auto}
 button,input,textarea,select{font:inherit}
 button,[role="button"],a{touch-action:manipulation}
 
-/* ══ PRELOADER ══ */
+/* ══ PRELOADER — ENHANCED ══ */
 #preloader{
-  position:fixed;
-  top:0;right:0;bottom:0;left:0; /* inset fallback for older browsers */
-  inset:0;
+  position:fixed;top:0;right:0;bottom:0;left:0;inset:0;
   z-index:9999;
-  background:radial-gradient(ellipse at 50% 40%,#1a0a2e 0%,#0a0818 100%);
+  background:radial-gradient(ellipse at 50% 35%,#28084a 0%,#1a0a2e 38%,#0e0620 70%,#0a0818 100%);
   display:-webkit-box;display:-ms-flexbox;display:flex;
   -webkit-box-orient:vertical;-webkit-box-direction:normal;
   -ms-flex-direction:column;flex-direction:column;
   -webkit-box-align:center;-ms-flex-align:center;align-items:center;
   -webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;
-  overflow:hidden; /* prevent child overflow on small screens */
-  /* iOS safe area for notch devices */
+  overflow:hidden;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
   padding-left:env(safe-area-inset-left,0px);
   padding-right:env(safe-area-inset-right,0px);
-  /* GPU compositing for smooth transition on Android/iOS */
   -webkit-transform:translateZ(0);transform:translateZ(0);
   will-change:opacity,visibility;
-  -webkit-transition:opacity .9s ease,visibility .9s ease;
-  transition:opacity .9s ease,visibility .9s ease;
+  -webkit-transition:opacity 1s ease,visibility 1s ease;
+  transition:opacity 1s ease,visibility 1s ease;
 }
 #preloader.hide{opacity:0;visibility:hidden;pointer-events:none}
-/* Lock body scroll while preloader active */
 body.preloader-active{overflow:hidden!important;touch-action:none}
-.pre-ring{
-  width:100px;height:100px;border-radius:50%;
-  border:2px solid transparent;
-  border-top-color:#d4a84b;border-right-color:#e8617a;
-  -webkit-animation:spin 1s linear infinite;
-  animation:spin 1s linear infinite;
-  margin-bottom:30px;
-  box-shadow:0 0 20px rgba(212,168,75,.3);
-  -webkit-transform:translateZ(0);transform:translateZ(0);
-  will-change:transform;
+
+/* — Animated nebula blobs — */
+.pre-cosmos{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.pre-neb{position:absolute;border-radius:50%;filter:blur(75px);pointer-events:none}
+.pre-neb1{
+  width:min(660px,130vw);height:min(660px,130vw);
+  background:radial-gradient(circle,rgba(155,80,224,.38) 0%,transparent 70%);
+  top:-18%;left:-12%;
+  -webkit-animation:nebDrift1 9s ease-in-out infinite;animation:nebDrift1 9s ease-in-out infinite;
 }
-@-webkit-keyframes spin{to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
-@keyframes spin{to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
-.pre-name{
-  font-family:'Pinyon Script',cursive;font-size:clamp(56px,14vw,120px);
-  /* Solid fallback for browsers without background-clip:text support */
-  color:#d4a84b;
-  background:linear-gradient(135deg,#f9e4b7,#d4a84b,#fff6d6,#e8617a);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  filter:drop-shadow(0 0 40px rgba(212,168,75,.6));
-  -webkit-animation:preNamePulse 1.8s ease-in-out infinite;
-  animation:preNamePulse 1.8s ease-in-out infinite;
+.pre-neb2{
+  width:min(520px,110vw);height:min(520px,110vw);
+  background:radial-gradient(circle,rgba(232,97,122,.3) 0%,transparent 70%);
+  bottom:-14%;right:-12%;
+  -webkit-animation:nebDrift2 11s ease-in-out infinite;animation:nebDrift2 11s ease-in-out infinite;
 }
-@-webkit-keyframes preNamePulse{0%,100%{filter:drop-shadow(0 0 20px rgba(212,168,75,.4))}50%{filter:drop-shadow(0 0 60px rgba(212,168,75,1))}}
-@keyframes preNamePulse{0%,100%{filter:drop-shadow(0 0 20px rgba(212,168,75,.4))}50%{filter:drop-shadow(0 0 60px rgba(212,168,75,1))}}
-.pre-bar{width:220px;height:2px;background:rgba(255,255,255,.08);margin-top:28px;border-radius:2px;overflow:hidden}
-.pre-fill{height:100%;background:linear-gradient(90deg,var(--r),var(--g));width:0%;-webkit-transition:width 2.3s ease;transition:width 2.3s ease}
-.pre-text{font-family:'Outfit';font-weight:200;font-size:10px;letter-spacing:6px;color:rgba(212,168,75,.5);margin-top:12px;text-transform:uppercase}
+.pre-neb3{
+  width:min(420px,88vw);height:min(420px,88vw);
+  background:radial-gradient(circle,rgba(46,204,144,.18) 0%,transparent 70%);
+  top:28%;left:50%;transform:translateX(-50%);
+  -webkit-animation:nebDrift3 7.5s ease-in-out infinite;animation:nebDrift3 7.5s ease-in-out infinite;
+}
+.pre-neb4{
+  width:min(360px,75vw);height:min(360px,75vw);
+  background:radial-gradient(circle,rgba(212,168,75,.22) 0%,transparent 70%);
+  top:8%;right:8%;
+  -webkit-animation:nebDrift1 14s ease-in-out infinite reverse;animation:nebDrift1 14s ease-in-out infinite reverse;
+}
+@keyframes nebDrift1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(28px,-18px) scale(1.06)}66%{transform:translate(-18px,14px) scale(.96)}}
+@keyframes nebDrift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-24px,-16px) scale(1.08)}}
+@keyframes nebDrift3{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-48%) scale(1.14)}}
+
+/* — Expanding pulse rings (centered behind everything) — */
+.pre-pulse-rings{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.pre-pr{
+  position:absolute;border-radius:50%;
+  width:50px;height:50px;
+  border:1.5px solid rgba(212,168,75,.55);
+  -webkit-animation:prePulseOut 3s ease-out infinite;animation:prePulseOut 3s ease-out infinite;
+}
+.pre-pr:nth-child(2){-webkit-animation-delay:1s;animation-delay:1s;border-color:rgba(232,97,122,.45)}
+.pre-pr:nth-child(3){-webkit-animation-delay:2s;animation-delay:2s;border-color:rgba(155,80,224,.4)}
+@keyframes prePulseOut{
+  0%{width:50px;height:50px;opacity:.9}
+  100%{width:min(500px,92vw);height:min(500px,92vw);opacity:0}
+}
+
+/* — Orbiting rings — */
+.pre-orbits{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.pre-orb{position:absolute;border-radius:50%;border:1px solid transparent}
+.pre-orb1{
+  width:min(210px,52vw);height:min(210px,52vw);
+  border-color:rgba(212,168,75,.18);
+  -webkit-animation:orbSpin 8s linear infinite;animation:orbSpin 8s linear infinite;
+}
+.pre-orb2{
+  width:min(300px,74vw);height:min(300px,74vw);
+  border-color:rgba(232,97,122,.13);
+  -webkit-animation:orbSpin 14s linear infinite reverse;animation:orbSpin 14s linear infinite reverse;
+}
+.pre-orb3{
+  width:min(385px,90vw);height:min(385px,90vw);
+  border-color:rgba(155,80,224,.1);
+  -webkit-animation:orbSpin 20s linear infinite;animation:orbSpin 20s linear infinite;
+}
+.pre-orb-dot{
+  position:absolute;top:0;left:50%;
+  transform:translateX(-50%) translateY(-50%);
+  width:9px;height:9px;border-radius:50%;
+  background:linear-gradient(135deg,#d4a84b,#f9e4b7);
+  box-shadow:0 0 14px rgba(212,168,75,.9),0 0 28px rgba(212,168,75,.4);
+}
+.pre-orb2 .pre-orb-dot{
+  width:8px;height:8px;
+  background:linear-gradient(135deg,#e8617a,#f7b8c4);
+  box-shadow:0 0 14px rgba(232,97,122,.9),0 0 28px rgba(232,97,122,.4);
+}
+.pre-orb3 .pre-orb-dot{
+  width:7px;height:7px;
+  background:linear-gradient(135deg,#9b50e0,#c8a8f9);
+  box-shadow:0 0 12px rgba(155,80,224,.9);
+}
+@-webkit-keyframes orbSpin{to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
+@keyframes orbSpin{to{transform:rotate(360deg)}}
+
+/* — Twinkle stars — */
+.pre-star-field{position:absolute;inset:0;pointer-events:none}
+.pre-star{
+  position:absolute;font-size:10px;color:rgba(212,168,75,.55);
+  -webkit-animation:preStarTwinkle 2.5s ease-in-out infinite;animation:preStarTwinkle 2.5s ease-in-out infinite;
+}
+@keyframes preStarTwinkle{0%,100%{opacity:.2;transform:scale(.7)}50%{opacity:1;transform:scale(1.3)}}
+
+/* — Floating side emojis — */
+.pre-side-emojis{position:absolute;inset:0;pointer-events:none}
+.pre-sem{
+  position:absolute;font-size:18px;
+  -webkit-animation:preSemFloat 4.2s ease-in-out infinite;animation:preSemFloat 4.2s ease-in-out infinite;
+  opacity:.65;
+}
+@keyframes preSemFloat{0%,100%{transform:translateY(0) rotate(-6deg);opacity:.45}50%{transform:translateY(-14px) rotate(6deg);opacity:.9}}
+
+/* — Central content wrapper — */
+.pre-main{
+  position:relative;z-index:2;
+  display:-webkit-box;display:-ms-flexbox;display:flex;
+  -webkit-box-orient:vertical;-webkit-box-direction:normal;
+  -ms-flex-direction:column;flex-direction:column;
+  -webkit-box-align:center;-ms-flex-align:center;align-items:center;
+  gap:8px;padding:16px;
+}
+
+/* — Birthday cake — */
+.pre-cake{
+  font-size:clamp(46px,10vw,68px);
+  display:block;line-height:1;
+  filter:drop-shadow(0 0 22px rgba(212,168,75,.65));
+  -webkit-animation:cakePop .9s cubic-bezier(.22,1.2,.36,1) forwards,cakeFloat 2.4s ease-in-out 1s infinite;
+  animation:cakePop .9s cubic-bezier(.22,1.2,.36,1) forwards,cakeFloat 2.4s ease-in-out 1s infinite;
+}
+@keyframes cakePop{0%{opacity:0;transform:scale(0) rotate(-20deg)}100%{opacity:1;transform:scale(1) rotate(0deg)}}
+@keyframes cakeFloat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-10px) rotate(3deg)}}
 
 /* ══ HAPPY BIRTHDAY PRELOADER ANIMATION ══ */
-.pre-hb-wrap{
-  position:relative;margin-bottom:18px;text-align:center;
-}
+.pre-hb-wrap{position:relative;text-align:center}
 .pre-hb{
   font-family:'Dancing Script',cursive;
-  font-size:clamp(32px,8vw,72px);
-  display:flex;flex-wrap:wrap;justify-content:center;gap:0 2px;
-  letter-spacing:2px;
-  filter:drop-shadow(0 0 18px rgba(232,97,122,.7));
+  font-size:clamp(36px,9.5vw,82px);
+  display:-webkit-box;display:-ms-flexbox;display:flex;
+  -ms-flex-wrap:wrap;flex-wrap:wrap;
+  -webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;
+  gap:0 2px;letter-spacing:2px;
+  filter:drop-shadow(0 0 26px rgba(232,97,122,.85));
 }
 .pre-hb-glow{
   position:absolute;inset:-20px;
-  background:radial-gradient(ellipse at 50% 50%,rgba(212,168,75,.18) 0%,transparent 70%);
-  pointer-events:none;animation:hbGlowPulse 2s ease-in-out infinite;
+  background:radial-gradient(ellipse at 50% 50%,rgba(212,168,75,.22) 0%,transparent 70%);
+  pointer-events:none;
+  -webkit-animation:hbGlowPulse 2s ease-in-out infinite;animation:hbGlowPulse 2s ease-in-out infinite;
 }
-@keyframes hbGlowPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+@keyframes hbGlowPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}}
 
-/* Individual letter animation */
 .hb-letter{
-  display:inline-block;
-  /* Solid color fallback for browsers without background-clip:text */
-  color:#e8617a;
-  background:linear-gradient(135deg,#ffd6e0,#f9e4b7,#e8617a,#d4a84b,#f7b8c4,#fff6d6);
-  background-size:300% 300%;
+  display:inline-block;color:#e8617a;
+  background:linear-gradient(135deg,#ffd6e0,#f9e4b7,#e8617a,#d4a84b,#f7b8c4,#9b50e0,#fff6d6);
+  background-size:400% 400%;
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
   opacity:0;
   -webkit-transform:translateY(40px) rotate(-8deg) scale(.6);
   transform:translateY(40px) rotate(-8deg) scale(.6);
-  -webkit-animation:hbLetterIn .6s cubic-bezier(.22,1.2,.36,1) forwards, hbShimmer 4s linear 1s infinite;
-  animation:hbLetterIn .6s cubic-bezier(.22,1.2,.36,1) forwards, hbShimmer 4s linear 1s infinite;
+  -webkit-animation:hbLetterIn .6s cubic-bezier(.22,1.2,.36,1) forwards,hbShimmer 4s linear 1s infinite;
+  animation:hbLetterIn .6s cubic-bezier(.22,1.2,.36,1) forwards,hbShimmer 4s linear 1s infinite;
   will-change:transform,opacity;
 }
 .hb-space{width:.35em;display:inline-block}
@@ -127,69 +214,149 @@ body.preloader-active{overflow:hidden!important;touch-action:none}
   80%{transform:translateY(2px) rotate(-1deg) scale(.97)}
   100%{opacity:1;transform:translateY(0) rotate(0deg) scale(1)}
 }
-@-webkit-keyframes hbShimmer{
-  0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}
-}
-@keyframes hbShimmer{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
+@-webkit-keyframes hbShimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes hbShimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
-/* Star burst emojis that float up */
 .pre-hb-star{
   position:absolute;font-size:1.2rem;
-  animation:starFloat 2.5s ease-out forwards;
+  -webkit-animation:starFloat 2.5s ease-out forwards;animation:starFloat 2.5s ease-out forwards;
   pointer-events:none;
 }
-@keyframes starFloat{
-  0%{opacity:1;transform:translateY(0) scale(1)}
-  100%{opacity:0;transform:translateY(-80px) scale(0) rotate(180deg)}
-}
+@keyframes starFloat{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-80px) scale(0) rotate(180deg)}}
 
-/* Balloons on preloader */
+/* — Balloons (with highlight shine) — */
 .pre-balloons{
-  display:-webkit-box;display:-ms-flexbox;display:flex;gap:14px;margin-bottom:10px;
+  display:-webkit-box;display:-ms-flexbox;display:flex;gap:10px;
+  -ms-flex-wrap:wrap;flex-wrap:wrap;
+  -webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;
 }
 .pre-balloon{
-  width:28px;height:36px;
+  width:27px;height:35px;
   background:var(--bc,#e8617a);
   border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;
   position:relative;
-  -webkit-animation:preBalloonFloat 2.4s ease-in-out infinite;
-  animation:preBalloonFloat 2.4s ease-in-out infinite;
-  -webkit-animation-delay:var(--bd,0s);
-  animation-delay:var(--bd,0s);
-  /* Safe fallback shadow without color-mix() */
+  -webkit-animation:preBalloonFloat 2.4s ease-in-out infinite;animation:preBalloonFloat 2.4s ease-in-out infinite;
+  -webkit-animation-delay:var(--bd,0s);animation-delay:var(--bd,0s);
   box-shadow:0 0 12px rgba(232,97,122,.35);
 }
 @supports(color:color-mix(in srgb,red 50%,transparent)){
-  .pre-balloon{box-shadow:0 0 12px color-mix(in srgb,var(--bc,#e8617a) 60%,transparent)}
+  .pre-balloon{box-shadow:0 0 14px color-mix(in srgb,var(--bc,#e8617a) 65%,transparent)}
+}
+.pre-balloon::before{
+  content:'';position:absolute;top:5px;left:5px;
+  width:7px;height:9px;border-radius:50%;
+  background:rgba(255,255,255,.38);transform:rotate(-30deg);
 }
 .pre-balloon::after{
-  content:'';position:absolute;bottom:-10px;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);
-  width:1.5px;height:10px;background:rgba(255,255,255,.4);
+  content:'';position:absolute;bottom:-10px;left:50%;
+  -webkit-transform:translateX(-50%);transform:translateX(-50%);
+  width:1.5px;height:10px;background:rgba(255,255,255,.35);
 }
 @-webkit-keyframes preBalloonFloat{
   0%,100%{-webkit-transform:translateY(0) rotate(-4deg);transform:translateY(0) rotate(-4deg)}
   50%{-webkit-transform:translateY(-10px) rotate(4deg);transform:translateY(-10px) rotate(4deg)}
 }
-@keyframes preBalloonFloat{
-  0%,100%{transform:translateY(0) rotate(-4deg)}
-  50%{transform:translateY(-10px) rotate(4deg)}
+@keyframes preBalloonFloat{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-10px) rotate(4deg)}}
+
+/* — Double spinner ring — */
+.pre-ring-wrap{position:relative;width:82px;height:82px;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}
+.pre-ring{
+  position:absolute;width:82px;height:82px;border-radius:50%;
+  border:2px solid transparent;
+  border-top-color:#d4a84b;border-right-color:rgba(212,168,75,.3);
+  -webkit-animation:spin 1s linear infinite;animation:spin 1s linear infinite;
+  box-shadow:0 0 22px rgba(212,168,75,.35);
+  -webkit-transform:translateZ(0);transform:translateZ(0);will-change:transform;
+}
+.pre-ring2{
+  position:absolute;width:56px;height:56px;border-radius:50%;
+  border:2px solid transparent;
+  border-top-color:#e8617a;border-bottom-color:rgba(232,97,122,.3);
+  -webkit-animation:spin .7s linear infinite reverse;animation:spin .7s linear infinite reverse;
+  box-shadow:0 0 16px rgba(232,97,122,.3);
+}
+.pre-ring3{
+  position:absolute;width:32px;height:32px;border-radius:50%;
+  border:1.5px solid transparent;
+  border-left-color:#9b50e0;border-right-color:rgba(155,80,224,.3);
+  -webkit-animation:spin .5s linear infinite;animation:spin .5s linear infinite;
+  box-shadow:0 0 10px rgba(155,80,224,.3);
+}
+@-webkit-keyframes spin{to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
+@keyframes spin{to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
+
+/* — Name — */
+.pre-name{
+  font-family:'Pinyon Script',cursive;
+  font-size:clamp(52px,13vw,112px);
+  color:#d4a84b;
+  background:linear-gradient(135deg,#f9e4b7,#d4a84b,#fff6d6,#e8617a,#f7b8c4,#c8a8f9);
+  background-size:300% 300%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 40px rgba(212,168,75,.7));
+  -webkit-animation:preNamePulse 1.8s ease-in-out infinite,preNameWave 3s ease-in-out infinite,hbShimmer 5s linear infinite;
+  animation:preNamePulse 1.8s ease-in-out infinite,preNameWave 3s ease-in-out infinite,hbShimmer 5s linear infinite;
+  line-height:1.1;
+}
+@-webkit-keyframes preNamePulse{0%,100%{filter:drop-shadow(0 0 20px rgba(212,168,75,.4))}50%{filter:drop-shadow(0 0 60px rgba(212,168,75,1))}}
+@keyframes preNamePulse{0%,100%{filter:drop-shadow(0 0 20px rgba(212,168,75,.4))}50%{filter:drop-shadow(0 0 60px rgba(212,168,75,1))}}
+@keyframes preNameWave{0%,100%{letter-spacing:normal}50%{letter-spacing:2px}}
+
+/* — Tagline below name — */
+.pre-tagline{
+  font-family:'Outfit',sans-serif;font-weight:200;
+  font-size:clamp(9px,2.4vw,13px);
+  letter-spacing:5px;text-transform:uppercase;
+  color:rgba(247,184,196,.7);
+  -webkit-animation:preTagGlow 2.6s ease-in-out infinite;animation:preTagGlow 2.6s ease-in-out infinite;
+}
+@keyframes preTagGlow{0%,100%{opacity:.45;letter-spacing:5px}50%{opacity:1;letter-spacing:6px;text-shadow:0 0 14px rgba(247,184,196,.55)}}
+
+/* — Progress bar area — */
+.pre-bar-area{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-ms-flex-align:center;align-items:center;gap:7px;margin-top:6px}
+.pre-bar{
+  width:min(250px,72vw);height:3px;
+  background:rgba(255,255,255,.07);
+  border-radius:4px;overflow:hidden;position:relative;
+  box-shadow:0 0 8px rgba(212,168,75,.15);
+}
+.pre-fill{
+  height:100%;
+  background:linear-gradient(90deg,#9b50e0,#e8617a,#d4a84b,#2ecc90);
+  background-size:300% 100%;
+  width:0%;
+  -webkit-transition:width 2.3s ease;transition:width 2.3s ease;
+  position:relative;z-index:1;
+  -webkit-animation:barGradSlide 2.2s linear infinite;animation:barGradSlide 2.2s linear infinite;
+}
+@keyframes barGradSlide{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+.pre-bar-shine{
+  position:absolute;inset:0;z-index:2;
+  background:linear-gradient(90deg,transparent 20%,rgba(255,255,255,.55) 50%,transparent 80%);
+  background-size:60% 100%;
+  -webkit-animation:barShine 1.8s ease-in-out infinite;animation:barShine 1.8s ease-in-out infinite;
+}
+@keyframes barShine{0%{background-position:-60% 0}100%{background-position:200% 0}}
+.pre-pct{
+  font-family:'Outfit',sans-serif;font-weight:200;
+  font-size:11px;letter-spacing:3px;
+  color:rgba(212,168,75,.55);
 }
 
-/* Confetti particles */
-.pre-confetti-wrap{
-  position:absolute;
-  top:0;right:0;bottom:0;left:0;
-  inset:0;pointer-events:none;overflow:hidden;
+/* — Loading text — */
+.pre-text{
+  font-family:'Outfit';font-weight:200;
+  font-size:9px;letter-spacing:7px;
+  color:rgba(212,168,75,.4);text-transform:uppercase;
+  -webkit-animation:preTextFade 2.2s ease-in-out infinite;animation:preTextFade 2.2s ease-in-out infinite;
 }
+@keyframes preTextFade{0%,100%{opacity:.35;letter-spacing:7px}50%{opacity:.85;letter-spacing:9px}}
+
+/* — Confetti particles — */
+.pre-confetti-wrap{position:absolute;top:0;right:0;bottom:0;left:0;inset:0;pointer-events:none;overflow:hidden}
 .pre-conf{
   position:absolute;width:7px;height:7px;border-radius:2px;
-  -webkit-animation:confFall linear infinite;
-  animation:confFall linear infinite;
-  opacity:.85;
+  -webkit-animation:confFall linear infinite;animation:confFall linear infinite;opacity:.85;
 }
 @-webkit-keyframes confFall{
   0%{-webkit-transform:translateY(-10px) rotate(0deg);transform:translateY(-10px) rotate(0deg);opacity:.85}
@@ -198,6 +365,16 @@ body.preloader-active{overflow:hidden!important;touch-action:none}
 @keyframes confFall{
   0%{transform:translateY(-10px) rotate(0deg);opacity:.85}
   100%{transform:translateY(100vh) rotate(720deg);opacity:0}
+}
+
+@media(max-width:440px){
+  .pre-orb1{width:min(150px,44vw);height:min(150px,44vw)}
+  .pre-orb2{width:min(210px,62vw);height:min(210px,62vw)}
+  .pre-orb3{width:min(270px,80vw);height:min(270px,80vw)}
+  .pre-cake{font-size:42px}
+  .pre-balloons{gap:7px}
+  .pre-balloon{width:22px;height:28px}
+  .pre-sem{display:none}
 }
 
 /* ══ SCROLL PROGRESS ══ */
@@ -1396,12 +1573,6 @@ footer{padding:0;border:none;min-height:0}
   50%{border-color:rgba(247,184,196,.2)}
 }
 
-/* ── Pre-loader name wave ── */
-.pre-name{animation:preNamePulse 1.8s ease-in-out infinite,preNameWave 3s ease-in-out infinite}
-@keyframes preNameWave{
-  0%,100%{letter-spacing:normal}
-  50%{letter-spacing:2px}
-}
 
 @media(max-width:520px){
   .section-badge{font-size:9px;letter-spacing:2.4px;padding:7px 14px;gap:6px}

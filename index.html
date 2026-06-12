@@ -12,24 +12,128 @@
 </head>
 <body>
 
+<!-- BACKGROUND MUSIC -->
+<audio id="bgMusic" src="Zulfein_-_Mehul_Mahesh_Prod_By.mp3" loop preload="auto" muted autoplay playsinline></audio>
+
+<!-- MUSIC TOGGLE BUTTON -->
+<button id="musicBtn" aria-label="Toggle music" title="Toggle music" onclick="toggleMusic()" style="
+  position:fixed;bottom:24px;right:24px;z-index:9999;
+  width:48px;height:48px;border-radius:50%;border:none;cursor:pointer;
+  background:linear-gradient(135deg,rgba(212,168,75,.35),rgba(155,80,224,.35));
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(212,168,75,.4);
+  box-shadow:0 0 18px rgba(212,168,75,.35),0 0 40px rgba(155,80,224,.2);
+  font-size:20px;display:flex;align-items:center;justify-content:center;
+  transition:all .3s ease;color:#fff;
+">🎵</button>
+
 <!-- PRELOADER -->
 <div id="preloader">
+
+  <!-- Cosmic nebula background -->
+  <div class="pre-cosmos" aria-hidden="true">
+    <div class="pre-neb pre-neb1"></div>
+    <div class="pre-neb pre-neb2"></div>
+    <div class="pre-neb pre-neb3"></div>
+    <div class="pre-neb pre-neb4"></div>
+  </div>
+
+  <!-- Expanding pulse rings -->
+  <div class="pre-pulse-rings" aria-hidden="true">
+    <div class="pre-pr"></div>
+    <div class="pre-pr"></div>
+    <div class="pre-pr"></div>
+  </div>
+
+  <!-- Orbiting rings with glowing dots -->
+  <div class="pre-orbits" aria-hidden="true">
+    <div class="pre-orb pre-orb1"><div class="pre-orb-dot"></div></div>
+    <div class="pre-orb pre-orb2"><div class="pre-orb-dot"></div></div>
+    <div class="pre-orb pre-orb3"><div class="pre-orb-dot"></div></div>
+  </div>
+
+  <!-- Confetti rain (populated by JS) -->
   <div class="pre-confetti-wrap" id="preConfetti"></div>
-  <div class="pre-hb-wrap">
-    <div class="pre-hb" id="preHB"></div>
-    <div class="pre-hb-glow"></div>
+
+  <!-- Twinkling corner stars -->
+  <div class="pre-star-field" aria-hidden="true">
+    <span class="pre-star" style="top:6%;left:11%;animation-delay:0s">✦</span>
+    <span class="pre-star" style="top:4%;left:48%;animation-delay:.4s">★</span>
+    <span class="pre-star" style="top:9%;right:9%;animation-delay:.9s">✦</span>
+    <span class="pre-star" style="top:19%;left:5%;animation-delay:1.3s;font-size:8px">✦</span>
+    <span class="pre-star" style="top:16%;right:7%;animation-delay:.2s;font-size:8px">★</span>
+    <span class="pre-star" style="bottom:22%;left:7%;animation-delay:.6s">✦</span>
+    <span class="pre-star" style="bottom:16%;right:11%;animation-delay:1.1s">★</span>
+    <span class="pre-star" style="bottom:9%;left:32%;animation-delay:1.5s;font-size:8px">✦</span>
+    <span class="pre-star" style="bottom:11%;right:28%;animation-delay:.35s;font-size:8px">✦</span>
+    <span class="pre-star" style="top:36%;left:2%;animation-delay:.95s;font-size:7px">✦</span>
+    <span class="pre-star" style="top:50%;right:3%;animation-delay:.55s;font-size:7px">★</span>
+    <span class="pre-star" style="top:65%;left:4%;animation-delay:1.2s;font-size:7px">✦</span>
+    <span class="pre-star" style="top:72%;right:5%;animation-delay:.75s;font-size:7px">✦</span>
   </div>
-  <div class="pre-balloons">
-    <div class="pre-balloon" style="--bc:#e8617a;--bd:0s"></div>
-    <div class="pre-balloon" style="--bc:#d4a84b;--bd:.3s"></div>
-    <div class="pre-balloon" style="--bc:#9b50e0;--bd:.6s"></div>
-    <div class="pre-balloon" style="--bc:#f7b8c4;--bd:.2s"></div>
-    <div class="pre-balloon" style="--bc:#2ecc90;--bd:.5s"></div>
+
+  <!-- Floating side emojis & music notes -->
+  <div class="pre-side-emojis" aria-hidden="true">
+    <span class="pre-sem" style="left:3%;top:24%;animation-delay:0s">🌸</span>
+    <span class="pre-sem" style="left:6%;top:56%;animation-delay:1.6s">✨</span>
+    <span class="pre-sem" style="right:3%;top:28%;animation-delay:.7s">💖</span>
+    <span class="pre-sem" style="right:5%;top:60%;animation-delay:2.1s">🌟</span>
+    <span class="pre-sem" style="left:4%;top:78%;animation-delay:1.1s">🎉</span>
+    <span class="pre-sem" style="right:3%;top:77%;animation-delay:1.9s">💜</span>
+    <span class="pre-sem" style="left:11%;top:11%;animation-delay:.3s;font-size:15px">♪</span>
+    <span class="pre-sem" style="right:10%;top:14%;animation-delay:1.3s;font-size:15px">♫</span>
+    <span class="pre-sem" style="left:8%;top:44%;animation-delay:2.3s;font-size:13px">♪</span>
+    <span class="pre-sem" style="right:8%;top:47%;animation-delay:.9s;font-size:13px">♫</span>
   </div>
-  <div class="pre-ring"></div>
-  <div class="pre-name">Oshi Dubey</div>
-  <div class="pre-bar"><div class="pre-fill" id="prefill"></div></div>
-  <p class="pre-text">✦ loading magic ✦</p>
+
+  <!-- ── Central content ── -->
+  <div class="pre-main">
+
+    <!-- Birthday cake -->
+    <div class="pre-cake" aria-hidden="true">🎂</div>
+
+    <!-- "Happy Birthday!" text (built letter-by-letter by JS) -->
+    <div class="pre-hb-wrap">
+      <div class="pre-hb" id="preHB"></div>
+      <div class="pre-hb-glow"></div>
+    </div>
+
+    <!-- Balloons (7 colors) -->
+    <div class="pre-balloons">
+      <div class="pre-balloon" style="--bc:#e8617a;--bd:0s"></div>
+      <div class="pre-balloon" style="--bc:#d4a84b;--bd:.3s"></div>
+      <div class="pre-balloon" style="--bc:#9b50e0;--bd:.6s"></div>
+      <div class="pre-balloon" style="--bc:#f7b8c4;--bd:.2s"></div>
+      <div class="pre-balloon" style="--bc:#2ecc90;--bd:.5s"></div>
+      <div class="pre-balloon" style="--bc:#f9c83a;--bd:.8s"></div>
+      <div class="pre-balloon" style="--bc:#40c0ff;--bd:.1s"></div>
+    </div>
+
+    <!-- Triple spinner ring -->
+    <div class="pre-ring-wrap" aria-hidden="true">
+      <div class="pre-ring"></div>
+      <div class="pre-ring pre-ring2"></div>
+      <div class="pre-ring pre-ring3"></div>
+    </div>
+
+    <!-- Name -->
+    <div class="pre-name">Oshi Dubey</div>
+
+    <!-- Tagline -->
+    <div class="pre-tagline">✨ &nbsp; Today is Your Day &nbsp; ✨</div>
+
+    <!-- Progress bar + percentage counter -->
+    <div class="pre-bar-area">
+      <div class="pre-bar">
+        <div class="pre-fill" id="prefill"></div>
+        <div class="pre-bar-shine"></div>
+      </div>
+      <div class="pre-pct" id="prePercent">0%</div>
+    </div>
+
+    <p class="pre-text">✦ loading magic ✦</p>
+
+  </div>
 </div>
 
 <div id="progress"></div>
@@ -67,6 +171,17 @@
   <div class="scroll-cue">
     <span class="scroll-txt">scroll down</span>
     <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- 3D CAROUSEL -->
+<section class="carousel-section reveal">
+  <div class="sec-head">
+    <h2>A Glimpse of You</h2>
+    <p>hover to pause · click to open</p>
+  </div>
+  <div class="carousel-scene">
+    <div class="carousel-ring" id="cRing"></div>
   </div>
 </section>
 
@@ -114,17 +229,6 @@
       <span class="mc-tag">— forever yours ✦</span>
     </div>
 
-  </div>
-</section>
-
-<!-- 3D CAROUSEL -->
-<section class="carousel-section reveal">
-  <div class="sec-head">
-    <h2>A Glimpse of You</h2>
-    <p>hover to pause · click to open</p>
-  </div>
-  <div class="carousel-scene">
-    <div class="carousel-ring" id="cRing"></div>
   </div>
 </section>
 
@@ -254,5 +358,90 @@
 </div>
 
 <script src="script.js"></script>
+
+<script>
+/* ══ PRELOADER PERCENTAGE COUNTER ══ */
+(function(){
+  const pctEl = document.getElementById('prePercent');
+  if(!pctEl) return;
+  let val = 0;
+  const tick = setInterval(function(){
+    val += Math.random() * 7 + 1;
+    if(val >= 99){ val = 99; clearInterval(tick); }
+    pctEl.textContent = Math.floor(val) + '%';
+  }, 90);
+  window.addEventListener('load', function(){
+    clearInterval(tick);
+    setTimeout(function(){ pctEl.textContent = '100%'; }, 200);
+  });
+})();
+
+/* ══ BACKGROUND MUSIC — autoplays muted, unmutes on first interaction ══ */
+(function(){
+  const aud = document.getElementById('bgMusic');
+  const btn = document.getElementById('musicBtn');
+  if(!aud) return;
+
+  aud.volume = 0.7;
+  aud.loop   = true;
+  aud.muted  = true;
+
+  let unlocked = false;   // has a real user gesture unmuted the audio?
+
+  /* ── UI button ── */
+  function syncBtn(){
+    if(!btn) return;
+    const on = !aud.paused && !aud.muted;
+    btn.textContent  = on ? '🎵' : '🔇';
+    btn.style.opacity = on ? '1' : '0.6';
+  }
+
+  /* ── Step 1: Start MUTED immediately — allowed everywhere ── */
+  function startMuted(){
+    aud.muted = true;
+    aud.play().then(syncBtn).catch(function(){});
+  }
+
+  /* ── Step 2: Unmute on the FIRST real user gesture ── */
+  function unlock(){
+    if(unlocked) return;
+    unlocked = true;
+    aud.muted  = false;
+    aud.volume = 0.7;
+    aud.play().then(syncBtn).catch(function(){});
+  }
+
+  var GESTURES = ['click','touchstart','touchend','keydown','pointerdown','scroll','wheel','mousemove'];
+  GESTURES.forEach(function(ev){
+    window.addEventListener(ev, unlock, { passive:true, once:true });
+  });
+
+  /* ── Manual toggle (music button) ── */
+  window.toggleMusic = function(){
+    unlocked = true;
+    if(!aud.paused && !aud.muted){
+      aud.pause();
+    } else {
+      aud.muted = false;
+      aud.volume = 0.7;
+      aud.play().catch(function(){});
+    }
+    syncBtn();
+  };
+
+  /* ── Resume if a tab switch / focus change pauses it ── */
+  document.addEventListener('visibilitychange', function(){
+    if(!document.hidden && unlocked && aud.paused){
+      aud.play().catch(function(){});
+    }
+    syncBtn();
+  });
+  window.addEventListener('focus', function(){
+    if(unlocked && aud.paused) aud.play().catch(function(){});
+  });
+
+  startMuted();
+})();
+</script>
 </body>
 </html>
