@@ -9,12 +9,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Pinyon+Script&family=Outfit:wght@100;200;300;400&family=Great+Vibes&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<script src="audio-data.js"></script>
 </head>
 <body>
 
 <!-- BACKGROUND MUSIC -->
-<audio id="bgMusic" loop preload="auto" muted playsinline></audio>
+<audio id="bgMusic" src="zulfein-V.mp3" loop preload="auto" autoplay playsinline></audio>
 
 <!-- MUSIC TOGGLE BUTTON -->
 <button id="musicBtn" aria-label="Toggle music" title="Toggle music" onclick="toggleMusic()" style="
@@ -27,26 +26,6 @@
   font-size:20px;display:flex;align-items:center;justify-content:center;
   transition:all .3s ease;color:#fff;
 ">🎵</button>
-
-<!-- TAP FOR SOUND HINT (auto-hides after first tap) -->
-<div id="soundHint" style="
-  position:fixed;bottom:30px;right:80px;z-index:9999;
-  background:rgba(20,10,30,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-  border:1px solid rgba(212,168,75,.35);border-radius:999px;
-  padding:8px 14px;font-size:12.5px;color:#fce8c0;white-space:nowrap;
-  font-family:'Outfit',sans-serif;letter-spacing:.02em;
-  box-shadow:0 0 16px rgba(212,168,75,.2);
-  animation:soundHintPulse 1.6s ease-in-out infinite;
-  pointer-events:none;
-  transition:opacity .4s ease, transform .4s ease;
-">🔊 tap anywhere for sound</div>
-<style>
-@keyframes soundHintPulse{
-  0%,100%{ opacity:.85; transform:translateY(0); }
-  50%{ opacity:1; transform:translateY(-3px); }
-}
-#soundHint.hidden{ opacity:0!important; transform:translateY(8px)!important; }
-</style>
 
 <!-- PRELOADER -->
 <div id="preloader">
@@ -401,33 +380,14 @@
 (function(){
   const aud = document.getElementById('bgMusic');
   const btn = document.getElementById('musicBtn');
-  const hint = document.getElementById('soundHint');
   if(!aud) return;
-
-  /* ── Build a Blob URL from the embedded base64 audio (mobile-reliable) ── */
-  try{
-    if(window.__BG_AUDIO_B64__){
-      const b64 = window.__BG_AUDIO_B64__;
-      const byteChars = atob(b64);
-      const byteArrays = new Uint8Array(byteChars.length);
-      for(let i = 0; i < byteChars.length; i++){
-        byteArrays[i] = byteChars.charCodeAt(i);
-      }
-      const blob = new Blob([byteArrays], { type: 'audio/mpeg' });
-      aud.src = URL.createObjectURL(blob);
-      aud.load();
-      /* free the giant base64 string from memory once converted */
-      window.__BG_AUDIO_B64__ = null;
-    }
-  }catch(e){
-    /* fallback: leave src empty, music simply won't play */
-  }
 
   aud.volume = 0.7;
   aud.loop   = true;
-  aud.muted  = true;
+  aud.muted  = false;
 
   let unlocked = false;   // has a real user gesture unmuted the audio?
+  let userPaused = false; // did the user manually pause the music?
 
   /* ── UI button ── */
   function syncBtn(){
@@ -436,59 +396,74 @@
     btn.textContent  = on ? '🎵' : '🔇';
     btn.style.opacity = on ? '1' : '0.6';
   }
+  window.syncBtn = syncBtn;
 
-  function hideHint(){
-    if(hint) hint.classList.add('hidden');
-  }
-
-  /* ── Step 1: Start MUTED immediately — allowed everywhere ── */
+  /* ── Step 1: Start playing immediately ── */
   function startMuted(){
-    aud.muted = true;
-    aud.play().then(syncBtn).catch(function(){});
+    aud.muted = false;
+    aud.play().then(() => {
+      unlocked = true;
+      syncBtn();
+    }).catch(function(e){
+      console.log("Autoplay failed:", e);
+    });
   }
 
   /* ── Step 2: Unmute on the FIRST real user gesture ── */
   function unlock(){
     if(unlocked) return;
     unlocked = true;
-    hideHint();
     aud.muted  = false;
     aud.volume = 0.7;
     aud.play().then(syncBtn).catch(function(){});
   }
 
-  /* Capture phase + non-passive so we win the race against any
-     button/element that might stop propagation, and so iOS Safari
-     counts this as a valid user-gesture call to play(). */
-  var GESTURES = ['pointerdown','touchstart','mousedown','keydown','click'];
+  var GESTURES = ['click','touchstart','touchend','keydown','pointerdown','scroll','wheel','mousemove'];
   GESTURES.forEach(function(ev){
-    document.addEventListener(ev, unlock, { capture:true, once:true });
+    window.addEventListener(ev, unlock, { passive:true, once:true });
   });
 
   /* ── Manual toggle (music button) ── */
   window.toggleMusic = function(){
     unlocked = true;
-    hideHint();
     if(!aud.paused && !aud.muted){
       aud.pause();
+      userPaused = true;
     } else {
       aud.muted = false;
       aud.volume = 0.7;
       aud.play().catch(function(){});
+      userPaused = false;
     }
     syncBtn();
   };
 
+  /* ── Any click attempts to play if not manually paused ── */
+  document.addEventListener('click', function() {
+    if (!userPaused && aud.paused) {
+      aud.play().catch(function(){});
+      syncBtn();
+    }
+  });
+
   /* ── Resume if a tab switch / focus change pauses it ── */
   document.addEventListener('visibilitychange', function(){
-    if(!document.hidden && unlocked && aud.paused){
+    if(!document.hidden && !userPaused && aud.paused){
       aud.play().catch(function(){});
     }
     syncBtn();
   });
   window.addEventListener('focus', function(){
-    if(unlocked && aud.paused) aud.play().catch(function(){});
+    if(!userPaused && aud.paused) aud.play().catch(function(){});
   });
+
+  /* ── Force keep-alive loop ── */
+  setInterval(function(){
+    if(!userPaused && aud.paused && !document.hidden) {
+      aud.play().catch(function(){});
+    }
+    syncBtn();
+  }, 2000);
 
   startMuted();
 })();
